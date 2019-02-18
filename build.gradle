@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'edu.learning'
-version '1.0-SNAPSHOT'
+version 'local-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
