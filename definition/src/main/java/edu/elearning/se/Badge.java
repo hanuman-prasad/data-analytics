@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
 public class Badge {
 
-    private String Class;
+    private String BadgeClass;
     private LocalDateTime Date;
 
     @NonNull
