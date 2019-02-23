@@ -1,5 +1,6 @@
 package edu.elearning.se;
 
+import com.google.common.base.MoreObjects;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -48,13 +49,13 @@ public class Badge implements AsteriModel {
 
     @Override
     public String toString() {
-        return "Badge{" +
-                "badgeClass=" + badgeClass +
-                ", date=" + date +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", tagBased='" + tagBased + '\'' +
-                ", userId='" + userId + '\'' +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("badgeClass", badgeClass)
+                .add("date", date)
+                .add("id", id)
+                .add("name", name)
+                .add("tagBased", tagBased)
+                .add("userId", userId)
+                .toString();
     }
 }

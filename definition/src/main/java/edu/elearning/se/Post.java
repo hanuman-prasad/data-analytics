@@ -66,6 +66,28 @@ public class Post implements AsteriModel {
         return lastEditorUserId;
     }
 
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("postTypeId", postTypeId)
+                .add("acceptedAnswerId", acceptedAnswerId)
+                .add("score", score)
+                .add("viewCount", viewCount)
+                .add("body", body)
+                .add("ownerUserId", ownerUserId)
+                .add("lastEditorUserId", lastEditorUserId)
+                .add("title", title)
+                .add("tags", tags)
+                .add("answerCount", answerCount)
+                .add("commentCount", commentCount)
+                .add("favoriteCount", favoriteCount)
+                .add("creationDate", creationDate)
+                .add("lastEditDate", lastEditDate)
+                .add("lastActivityDate", lastActivityDate)
+                .toString();
+    }
+
     public String getTitle() {
         return title;
     }
@@ -98,25 +120,4 @@ public class Post implements AsteriModel {
         return lastActivityDate;
     }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("postTypeId", postTypeId)
-                .add("acceptedAnswerId", acceptedAnswerId)
-                .add("score", score)
-                .add("viewCount", viewCount)
-                .add("body", body)
-                .add("ownerUserId", ownerUserId)
-                .add("lastEditorUserId", lastEditorUserId)
-                .add("title", title)
-                .add("tags", tags)
-                .add("answerCount", answerCount)
-                .add("commentCount", commentCount)
-                .add("favoriteCount", favoriteCount)
-                .add("creationDate", creationDate)
-                .add("lastEditDate", lastEditDate)
-                .add("lastActivityDate", lastActivityDate)
-                .toString();
-    }
 }

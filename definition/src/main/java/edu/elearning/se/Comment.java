@@ -1,5 +1,6 @@
 package edu.elearning.se;
 
+import com.google.common.base.MoreObjects;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -47,13 +48,13 @@ public class Comment implements AsteriModel {
 
     @Override
     public String toString() {
-        return "Comment{" +
-                "id='" + id + '\'' +
-                ", postId='" + postId + '\'' +
-                ", score='" + score + '\'' +
-                ", text='" + text + '\'' +
-                ", creationDate=" + creationDate +
-                ", userId='" + userId + '\'' +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("postId", postId)
+                .add("score", score)
+                .add("text", text)
+                .add("creationDate", creationDate)
+                .add("userId", userId)
+                .toString();
     }
 }

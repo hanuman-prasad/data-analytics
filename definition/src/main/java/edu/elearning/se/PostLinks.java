@@ -1,5 +1,6 @@
 package edu.elearning.se;
 
+import com.google.common.base.MoreObjects;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,4 +19,35 @@ public class PostLinks implements AsteriModel {
     private String linkTypeId;
     private String postId;
     private String relatedPostId;
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getLinkTypeId() {
+        return linkTypeId;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public String getRelatedPostId() {
+        return relatedPostId;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("creationDate", creationDate)
+                .add("id", id)
+                .add("linkTypeId", linkTypeId)
+                .add("postId", postId)
+                .add("relatedPostId", relatedPostId)
+                .toString();
+    }
 }
