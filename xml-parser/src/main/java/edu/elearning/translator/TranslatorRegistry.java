@@ -9,6 +9,7 @@ public interface TranslatorRegistry {
             .put("badges", new BadgeTranslator())
             .put("comments", new CommentTranslator())
             .put("posthistory", new PostHistoryTranslator())
+            .put("postlinks", new PostLinkTranslator())
             .put("posts", new PostTranslator())
             .put("users", new UserTranslator())
             .build();
