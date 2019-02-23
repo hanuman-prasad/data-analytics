@@ -1,5 +1,6 @@
 package edu.elearning;
 
+import edu.elearning.se.BadgeClass;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public class TranslatorUtils {
         checkForNull(map, key);
         String val = map.get(key);
 
-        LOG.log(Level.OFF, "Key : " + key + " Value : " + val);
+        LOG.log(Level.FINEST, "Key : " + key + " Value : " + val);
 
         return val;
     }
@@ -34,10 +35,23 @@ public class TranslatorUtils {
 
         LocalDateTime localDateTime = LocalDateTime.parse(dateValue);
 
-        LOG.log(Level.OFF, "Date name : " + dateName + ", Date value : " + dateValue);
+        LOG.log(Level.FINEST, "Date name : " + dateName + ", Date value : " + dateValue);
 
         return localDateTime;
 
+    }
+
+
+    public static <T> T getEnum(Class<T> enumClass, String index) {
+
+        if(StringUtils.isBlank(index)){
+            return null;
+        }
+        int i = Integer.parseInt(index);
+
+        T[] enumConstants = enumClass.getEnumConstants();
+
+        return enumConstants[i];
     }
 
     private static void checkForNull(Map<String, String> map, String key) {
