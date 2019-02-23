@@ -10,6 +10,7 @@ public interface TranslatorRegistry {
             .put("comments", new CommentTranslator())
             .put("posthistory", new PostHistoryTranslator())
             .put("postlinks", new PostLinkTranslator())
+            .put("tags", new TagTranslator())
             .put("posts", new PostTranslator())
             .put("users", new UserTranslator())
             .build();
