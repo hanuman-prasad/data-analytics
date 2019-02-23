@@ -1,12 +1,14 @@
 package edu.elearning.translator;
 
-import edu.elearning.TranslatorUtils;
 import edu.elearning.se.Badge;
 import edu.elearning.se.BadgeClass;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import static edu.elearning.TranslatorUtils.getLocalDate;
+import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+
 
 public class BadgeTranslator implements Translator<Badge> {
 
@@ -19,12 +21,12 @@ public class BadgeTranslator implements Translator<Badge> {
         LOG.info("Translation started..");
 
         Badge badge = Badge.builder()
-                .id(getVal(map, "id"))
-                .name(getVal(map, "name"))
-                .tagBased(getVal(map, "tagbased"))
-                .userId(getVal(map, "userid"))
-                .date(getDate(map, "date"))
-                .badgeClass(getBadgeClass(getVal(map, "class")))
+                .id(getValueFromInputMap(map, "id"))
+                .name(getValueFromInputMap(map, "name"))
+                .tagBased(getValueFromInputMap(map, "tagbased"))
+                .userId(getValueFromInputMap(map, "userid"))
+                .date(getLocalDate(map, "date"))
+                .badgeClass(getBadgeClass(getValueFromInputMap(map, "class")))
                 .build();
 
 
@@ -44,14 +46,6 @@ public class BadgeTranslator implements Translator<Badge> {
 
 
         return BadgeClass.values()[i - 1];
-    }
-
-    private LocalDateTime getDate(Map<String, String> map, String date) {
-        return TranslatorUtils.getLocalDateTime(getVal(map, date));
-    }
-
-    private String getVal(Map<String, String> map, String key) {
-        return TranslatorUtils.getValueFromInputMap(map, key);
     }
 }
 

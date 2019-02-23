@@ -1,11 +1,12 @@
 package edu.elearning.translator;
 
-import edu.elearning.TranslatorUtils;
 import edu.elearning.se.User;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import static edu.elearning.TranslatorUtils.getLocalDate;
+import static edu.elearning.TranslatorUtils.getValueFromInputMap;
 
 public class UserTranslator implements Translator<User> {
 
@@ -17,31 +18,23 @@ public class UserTranslator implements Translator<User> {
         LOG.info("Translation started..");
 
         User user = User.builder()
-                .id(getVal(map, "id"))
-                .displayName(getVal(map, "displayname"))
-                .accountId(getVal(map, "accountid"))
-                .location(getVal(map, "location"))
-                .aboutMe(getVal(map, "aboutme"))
-                .downVotes(getVal(map, "downvotes"))
-                .profileImageUrl(getVal(map, "profileimageurl"))
-                .reputation(getVal(map, "reputation"))
-                .upVotes(getVal(map, "upvotes"))
-                .views(getVal(map, "views"))
-                .websiteUrl(getVal(map, "websiteurl"))
-                .creationDate(getDate(map, "creationdate"))
-                .lastAccessDate(getDate(map, "lastaccessdate"))
+                .id(getValueFromInputMap(map, "id"))
+                .displayName(getValueFromInputMap(map, "displayname"))
+                .accountId(getValueFromInputMap(map, "accountid"))
+                .location(getValueFromInputMap(map, "location"))
+                .aboutMe(getValueFromInputMap(map, "aboutme"))
+                .downVotes(getValueFromInputMap(map, "downvotes"))
+                .profileImageUrl(getValueFromInputMap(map, "profileimageurl"))
+                .reputation(getValueFromInputMap(map, "reputation"))
+                .upVotes(getValueFromInputMap(map, "upvotes"))
+                .views(getValueFromInputMap(map, "views"))
+                .websiteUrl(getValueFromInputMap(map, "websiteurl"))
+                .creationDate(getLocalDate(map, "creationdate"))
+                .lastAccessDate(getLocalDate(map, "lastaccessdate"))
                 .build();
 
         LOG.info("Translation completed for User : " + user.getId());
 
         return user;
-    }
-
-    private LocalDateTime getDate(Map<String, String> map, String date) {
-        return TranslatorUtils.getLocalDateTime(getVal(map, date));
-    }
-
-    private String getVal(Map<String, String> map, String key) {
-        return TranslatorUtils.getValueFromInputMap(map, key);
     }
 }

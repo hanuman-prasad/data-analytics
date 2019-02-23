@@ -1,11 +1,12 @@
 package edu.elearning.translator;
 
-import edu.elearning.TranslatorUtils;
 import edu.elearning.se.Post;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import static edu.elearning.TranslatorUtils.getLocalDate;
+import static edu.elearning.TranslatorUtils.getValueFromInputMap;
 
 public class PostTranslator implements Translator<Post> {
 
@@ -15,40 +16,30 @@ public class PostTranslator implements Translator<Post> {
     @Override
     public Post translate(Map<String, String> map) {
 
-        LOG.info("Translation started for Post Id - " + getVal(map, "id"));
+        LOG.info("Translation started for Post Id - " + getValueFromInputMap(map, "id"));
 
         Post post = Post.builder()
 
-                .id(getVal(map, "id"))
-                .postTypeId(getVal(map, "posttypeid"))
-                .acceptedAnswerId(getVal(map, "acceptedanswerid"))
-                .score(getVal(map, "score"))
-                .viewCount(getVal(map, "viewcount"))
-                .body(getVal(map, "body"))
-                .ownerUserId(getVal(map, "owneruserid"))
-                .lastEditorUserId(getVal(map, "lasteditoruserid"))
-                .title(getVal(map, "title"))
-                .tags(getVal(map, "tags"))
-                .answerCount(getVal(map, "answercount"))
-                .commentCount(getVal(map, "commentcount"))
-                .favoriteCount(getVal(map, "favoritecount"))
-                .creationDate(getDate(map, "creationdate"))
-                .lastEditDate(getDate(map, "lasteditdate"))
-                .lastActivityDate(getDate(map, "lastactivitydate"))
+                .id(getValueFromInputMap(map, "id"))
+                .postTypeId(getValueFromInputMap(map, "posttypeid"))
+                .acceptedAnswerId(getValueFromInputMap(map, "acceptedanswerid"))
+                .score(getValueFromInputMap(map, "score"))
+                .viewCount(getValueFromInputMap(map, "viewcount"))
+                .body(getValueFromInputMap(map, "body"))
+                .ownerUserId(getValueFromInputMap(map, "owneruserid"))
+                .lastEditorUserId(getValueFromInputMap(map, "lasteditoruserid"))
+                .title(getValueFromInputMap(map, "title"))
+                .tags(getValueFromInputMap(map, "tags"))
+                .answerCount(getValueFromInputMap(map, "answercount"))
+                .commentCount(getValueFromInputMap(map, "commentcount"))
+                .favoriteCount(getValueFromInputMap(map, "favoritecount"))
+                .creationDate(getLocalDate(map, "creationdate"))
+                .lastEditDate(getLocalDate(map, "lasteditdate"))
+                .lastActivityDate(getLocalDate(map, "lastactivitydate"))
                 .build();
 
         LOG.info("Translation completed for Post - " + post.getId());
 
         return post;
     }
-
-
-    private LocalDateTime getDate(Map<String, String> map, String date) {
-        return TranslatorUtils.getLocalDateTime(getVal(map, date));
-    }
-
-    private String getVal(Map<String, String> map, String key) {
-        return TranslatorUtils.getValueFromInputMap(map, key);
-    }
-
 }
