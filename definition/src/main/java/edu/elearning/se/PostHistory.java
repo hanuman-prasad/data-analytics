@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class PostHistory implements AsteriModel {
 
     private LocalDateTime creationDate;
-    private PostHistoryTypeId postHistoryTypeId;
+    private PostHistoryType postHistoryType;
 
     private String comment;
 
@@ -34,8 +34,8 @@ public class PostHistory implements AsteriModel {
         return creationDate;
     }
 
-    public PostHistoryTypeId getPostHistoryTypeId() {
-        return postHistoryTypeId;
+    public PostHistoryType getPostHistoryType() {
+        return postHistoryType;
     }
 
     public String getComment() {
@@ -66,7 +66,7 @@ public class PostHistory implements AsteriModel {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("creationDate", creationDate)
-                .add("postHistoryTypeId", postHistoryTypeId)
+                .add("postHistoryType", postHistoryType)
                 .add("comment", comment)
                 .add("id", id)
                 .add("postId", postId)

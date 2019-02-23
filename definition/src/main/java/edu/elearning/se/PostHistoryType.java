@@ -1,6 +1,6 @@
 package edu.elearning.se;
 
-public enum PostHistoryTypeId {
+public enum PostHistoryType {
 
     INITIAL_TITLE,
     INITIAL_BODY,

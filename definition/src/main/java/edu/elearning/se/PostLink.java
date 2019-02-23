@@ -6,12 +6,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
 public class PostLink implements AsteriModel {
 
-    private String creationDate;
+    private LocalDateTime creationDate;
 
     @NonNull
     @EqualsAndHashCode.Include
@@ -20,7 +22,7 @@ public class PostLink implements AsteriModel {
     private String postId;
     private String relatedPostId;
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 

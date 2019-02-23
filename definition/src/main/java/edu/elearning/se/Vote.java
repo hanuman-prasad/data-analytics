@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
@@ -15,8 +17,8 @@ public class Vote implements AsteriModel {
     @EqualsAndHashCode.Include
     private String id;
     private String postId;
-    private String voteTypeId;
-    private String creationDate;
+    private VoteType voteTypeId;
+    private LocalDateTime creationDate;
 
     public String getId() {
         return id;
@@ -26,11 +28,11 @@ public class Vote implements AsteriModel {
         return postId;
     }
 
-    public String getVoteTypeId() {
+    public VoteType getVoteTypeId() {
         return voteTypeId;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
