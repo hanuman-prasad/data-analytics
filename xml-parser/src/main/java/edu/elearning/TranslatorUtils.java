@@ -1,6 +1,5 @@
 package edu.elearning;
 
-import edu.elearning.se.BadgeClass;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
@@ -44,14 +43,14 @@ public class TranslatorUtils {
 
     public static <T> T getEnum(Class<T> enumClass, String index) {
 
-        if(StringUtils.isBlank(index)){
+        if (StringUtils.isBlank(index)) {
             return null;
         }
         int i = Integer.parseInt(index);
 
         T[] enumConstants = enumClass.getEnumConstants();
 
-        return enumConstants[i-1];
+        return enumConstants[i - 1];
     }
 
     private static void checkForNull(Map<String, String> map, String key) {
