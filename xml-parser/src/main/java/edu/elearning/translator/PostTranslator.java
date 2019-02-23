@@ -5,8 +5,8 @@ import edu.elearning.se.Post;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.getLocalDate;
-import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.getLocalDate;
+import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 public class PostTranslator implements Translator<Post> {
 
@@ -14,7 +14,7 @@ public class PostTranslator implements Translator<Post> {
 
 
     @Override
-    public Post translate(Map<String, String> map) {
+    public Post translate(Map<String, String> map) throws TranslationException {
 
         LOG.info("Translation started for Post Id - " + getValueFromInputMap(map, "id"));
 

@@ -6,13 +6,13 @@ import edu.elearning.se.PostHistoryType;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.*;
+import static edu.elearning.translator.TranslatorUtils.*;
 
 public class PostHistoryTranslator implements Translator<PostHistory> {
     private static final Logger LOG = Logger.getLogger("PostHistoryTranslator");
 
     @Override
-    public PostHistory translate(Map<String, String> map) {
+    public PostHistory translate(Map<String, String> map) throws TranslationException {
 
         LOG.info("Translation started for PostHistory entity. Id - " + getValueFromInputMap(map, "id"));
 

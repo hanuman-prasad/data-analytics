@@ -5,14 +5,14 @@ import edu.elearning.se.Tag;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 public class TagTranslator implements Translator<Tag> {
 
     private static final Logger LOG = Logger.getLogger("TagTranslator");
 
     @Override
-    public Tag translate(Map<String, String> map) {
+    public Tag translate(Map<String, String> map) throws TranslationException {
 
         LOG.info("Translation started for Tag entity. Id : " + getValueFromInputMap(map, "id"));
 

@@ -6,8 +6,8 @@ import edu.elearning.se.BadgeClass;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.getLocalDate;
-import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.getLocalDate;
+import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 
 public class BadgeTranslator implements Translator<Badge> {
@@ -16,9 +16,9 @@ public class BadgeTranslator implements Translator<Badge> {
 
 
     @Override
-    public Badge translate(Map<String, String> map) {
+    public Badge translate(Map<String, String> map) throws TranslationException {
 
-        LOG.info("Translation started..");
+        LOG.info("Translation started for Badge entity. id : " + getValueFromInputMap(map, "id"));
 
         Badge badge = Badge.builder()
                 .id(getValueFromInputMap(map, "id"))

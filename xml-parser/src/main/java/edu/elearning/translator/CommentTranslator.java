@@ -3,13 +3,19 @@ package edu.elearning.translator;
 import edu.elearning.se.Comment;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.getLocalDate;
-import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.getLocalDate;
+import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 public class CommentTranslator implements Translator<Comment> {
+
+    private static final Logger LOG = Logger.getLogger("CommentTranslator");
+
     @Override
-    public Comment translate(Map<String, String> map) {
+    public Comment translate(Map<String, String> map) throws TranslationException {
+
+        LOG.info("Translation started for Comment entity. id : " + getValueFromInputMap(map, "id"));
 
         Comment comment = Comment.builder()
                 .id(getValueFromInputMap(map, "id"))
@@ -20,6 +26,7 @@ public class CommentTranslator implements Translator<Comment> {
                 .userId(getValueFromInputMap(map, "userid"))
                 .build();
 
+        LOG.info("Translation completed for Tag entity. Id : " + comment);
 
         return comment;
     }

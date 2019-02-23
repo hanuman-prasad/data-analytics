@@ -5,15 +5,15 @@ import edu.elearning.se.User;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.getLocalDate;
-import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.getLocalDate;
+import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 public class UserTranslator implements Translator<User> {
 
     private static final Logger LOG = Logger.getLogger("UserTranslator");
 
     @Override
-    public User translate(Map<String, String> map) {
+    public User translate(Map<String, String> map) throws TranslationException {
 
         LOG.info("Translation started..");
 

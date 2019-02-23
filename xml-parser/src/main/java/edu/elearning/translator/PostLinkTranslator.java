@@ -5,15 +5,15 @@ import edu.elearning.se.PostLink;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.TranslatorUtils.getLocalDate;
-import static edu.elearning.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.getLocalDate;
+import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 public class PostLinkTranslator implements Translator<PostLink> {
 
     private static final Logger LOG = Logger.getLogger("PostLinkTranslator");
 
     @Override
-    public PostLink translate(Map<String, String> map) {
+    public PostLink translate(Map<String, String> map) throws TranslationException {
 
         LOG.info("Translation started for PostLink entity. Id : " + getValueFromInputMap(map, "id"));
 
