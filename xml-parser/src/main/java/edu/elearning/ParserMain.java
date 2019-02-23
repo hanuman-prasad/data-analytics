@@ -1,12 +1,9 @@
 package edu.elearning;
 
-import com.google.common.collect.ImmutableMap;
 import edu.elearning.regex.StackExchangeRegex;
 import edu.elearning.se.AsteriModel;
-import edu.elearning.se.Post;
-import edu.elearning.translator.PostTranslator;
 import edu.elearning.translator.Translator;
-import edu.elearning.translator.UserTranslator;
+import edu.elearning.translator.TranslatorRegistry;
 import edu.elearning.xml.XmlFileHelper;
 import edu.elearning.xml.XmlFileReader;
 import edu.elearning.xml.XmlFileReaderImpl;
@@ -17,46 +14,36 @@ import java.util.*;
 
 public class ParserMain {
     public static void main(String[] args) throws FileNotFoundException {
-        XmlFileReader xmlFileReader = new XmlFileReaderImpl("D:/stackexchange/beer/Posts.xml");
 
         List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/beer/");
+        Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
-        for(File file : files){
+        for (File file : files) {
 
-        }
+            String name = file.getName();
 
-        Optional<String> line = xmlFileReader.readLineFromXmlFile();
+            name = name.substring(0, name.length() - 4).toLowerCase();
 
+            Translator<? extends AsteriModel> translator = TranslatorRegistry.MODEL_REGISTRY.get(name);
 
+            XmlFileReader xmlFileReader = new XmlFileReaderImpl(file);
+            Optional<String> line = xmlFileReader.readLineFromXmlFile();
 
-        List<Map<String, String>> list = new ArrayList<>();
+            List<AsteriModel> list = new ArrayList<>();
 
-        while (line.isPresent()) {
-            Map<String, String> map = StackExchangeRegex.parseString(line.get());
-            if (!map.isEmpty()) {
-                list.add(map);
-            }
-            line = xmlFileReader.readLineFromXmlFile();
-        }
-
-        Translator<Post> translator;
-        for (Map<String, String> m : list) {
-            Set<Map.Entry<String, String>> entries = m.entrySet();
-            for (Map.Entry<String, String> e : entries) {
-
-                if (e.getKey().equals("176")) {
-                    System.out.println(e.getValue());
+            while (line.isPresent()) {
+                Map<String, String> map = StackExchangeRegex.parseString(line.get());
+                if (!map.isEmpty()) {
+                    AsteriModel asteriModel = translator.translate(map);
+                    list.add(asteriModel);
                 }
+                line = xmlFileReader.readLineFromXmlFile();
+            }
 
-//                System.out.println(e.getKey() + e.getValue());
-            }
-            String id = m.get("id");
-            if (id.equals("177")) {
-                System.out.println(id);
-            }
-            translator = new PostTranslator();
-            Post post = translator.translate(m);
-            System.out.println(post);
+
+            modelMap.put(name, list);
+
+
         }
 
     }
