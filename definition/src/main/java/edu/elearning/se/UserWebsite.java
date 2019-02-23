@@ -1,7 +1,7 @@
 package edu.elearning.se;
 
-public enum  UserWebsite {
+public enum UserWebsite {
 
     STACKOVERFLOW,
-    BEER;
+    BEER
 }

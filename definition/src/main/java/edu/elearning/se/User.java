@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User implements AsteriModel {
-
 
 
     @NonNull
@@ -39,7 +37,6 @@ public class User implements AsteriModel {
     private LocalDateTime lastAccessDate;
 
     private UserWebsite userWebsite;
-
 
 
     @Override

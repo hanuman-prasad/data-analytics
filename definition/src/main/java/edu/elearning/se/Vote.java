@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@EqualsAndHashCode (onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Vote implements AsteriModel {
 
     @NonNull

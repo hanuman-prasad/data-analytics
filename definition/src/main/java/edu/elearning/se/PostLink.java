@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@EqualsAndHashCode (onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PostLink implements AsteriModel {
 
     private LocalDateTime creationDate;
