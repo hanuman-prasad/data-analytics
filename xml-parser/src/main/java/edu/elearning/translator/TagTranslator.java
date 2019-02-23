@@ -9,12 +9,13 @@ import static edu.elearning.TranslatorUtils.getValueFromInputMap;
 
 public class TagTranslator implements Translator<Tag> {
 
-    private static final Logger LOG = Logger.getLogger("PostLinkTranslator");
+    private static final Logger LOG = Logger.getLogger("TagTranslator");
 
     @Override
     public Tag translate(Map<String, String> map) {
 
         LOG.info("Translation started for Tag entity. Id : " + getValueFromInputMap(map, "id"));
+
         Tag tag = Tag.builder()
                 .id(getValueFromInputMap(map, "id"))
                 .tagName(getValueFromInputMap(map, "tagname"))
@@ -24,7 +25,7 @@ public class TagTranslator implements Translator<Tag> {
                 .build();
 
 
-        LOG.info("Translation completed for PostLink. Id : " + tag);
+        LOG.info("Translation completed for Tag entity. Id : " + tag);
 
         return tag;
     }

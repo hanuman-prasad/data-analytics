@@ -13,6 +13,7 @@ public interface TranslatorRegistry {
             .put("tags", new TagTranslator())
             .put("posts", new PostTranslator())
             .put("users", new UserTranslator())
+            .put("votes", new VoteTranslator())
             .build();
 
 }

@@ -51,7 +51,7 @@ public class TranslatorUtils {
 
         T[] enumConstants = enumClass.getEnumConstants();
 
-        return enumConstants[i];
+        return enumConstants[i-1];
     }
 
     private static void checkForNull(Map<String, String> map, String key) {
