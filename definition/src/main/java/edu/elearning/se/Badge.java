@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
-public class Badge {
+public class Badge implements AsteriModel {
 
-    private String BadgeClass;
-    private LocalDateTime Date;
+    private BadgeClass badgeClass;
+    private LocalDateTime date;
 
     @NonNull
     @EqualsAndHashCode.Include
@@ -21,4 +21,40 @@ public class Badge {
     private String name;
     private String tagBased;
     private String userId;
+
+    public BadgeClass getBadgeClass() {
+        return badgeClass;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTagBased() {
+        return tagBased;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Badge{" +
+                "badgeClass=" + badgeClass +
+                ", date=" + date +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", tagBased='" + tagBased + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
 }

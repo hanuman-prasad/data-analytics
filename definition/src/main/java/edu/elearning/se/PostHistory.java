@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
-public class PostHistory {
+public class PostHistory implements AsteriModel {
 
     private LocalDateTime creationDate;
     private PostHistoryTypeId postHistoryTypeId;

@@ -11,7 +11,7 @@ import java.util.Objects;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class User implements AsteriModel {
 
 
 

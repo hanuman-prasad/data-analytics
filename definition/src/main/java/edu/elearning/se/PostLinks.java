@@ -8,7 +8,7 @@ import lombok.NonNull;
 @Builder
 @Getter
 @EqualsAndHashCode (onlyExplicitlyIncluded = true)
-public class PostLinks {
+public class PostLinks implements AsteriModel {
 
     private String creationDate;
 
