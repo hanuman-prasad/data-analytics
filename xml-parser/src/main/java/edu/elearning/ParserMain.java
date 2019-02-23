@@ -15,7 +15,7 @@ import java.util.*;
 public class ParserMain {
     public static void main(String[] args) throws FileNotFoundException {
 
-        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/beer/");
+        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/beer/parse/");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
         for (File file : files) {
