@@ -17,7 +17,6 @@ public class Post implements AsteriModel {
     @NonNull
     @EqualsAndHashCode.Include
     private String id;
-    private String postTypeId;
     private String acceptedAnswerId;
     private String score;
     private String viewCount;
@@ -34,12 +33,10 @@ public class Post implements AsteriModel {
     private LocalDateTime lastEditDate;
     private LocalDateTime lastActivityDate;
 
+    private PostType postType;
+
     public String getId() {
         return id;
-    }
-
-    public String getPostTypeId() {
-        return postTypeId;
     }
 
     public String getAcceptedAnswerId() {
@@ -64,28 +61,6 @@ public class Post implements AsteriModel {
 
     public String getLastEditorUserId() {
         return lastEditorUserId;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("postTypeId", postTypeId)
-                .add("acceptedAnswerId", acceptedAnswerId)
-                .add("score", score)
-                .add("viewCount", viewCount)
-                .add("body", body)
-                .add("ownerUserId", ownerUserId)
-                .add("lastEditorUserId", lastEditorUserId)
-                .add("title", title)
-                .add("tags", tags)
-                .add("answerCount", answerCount)
-                .add("commentCount", commentCount)
-                .add("favoriteCount", favoriteCount)
-                .add("creationDate", creationDate)
-                .add("lastEditDate", lastEditDate)
-                .add("lastActivityDate", lastActivityDate)
-                .toString();
     }
 
     public String getTitle() {
@@ -120,4 +95,29 @@ public class Post implements AsteriModel {
         return lastActivityDate;
     }
 
+    public PostType getPostType() {
+        return postType;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("acceptedAnswerId", acceptedAnswerId)
+                .add("score", score)
+                .add("viewCount", viewCount)
+                .add("body", body)
+                .add("ownerUserId", ownerUserId)
+                .add("lastEditorUserId", lastEditorUserId)
+                .add("title", title)
+                .add("tags", tags)
+                .add("answerCount", answerCount)
+                .add("commentCount", commentCount)
+                .add("favoriteCount", favoriteCount)
+                .add("creationDate", creationDate)
+                .add("lastEditDate", lastEditDate)
+                .add("lastActivityDate", lastActivityDate)
+                .add("postType", postType)
+                .toString();
+    }
 }
