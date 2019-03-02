@@ -29,6 +29,7 @@ public class PostHistory implements AsteriModel {
     private String text;
     private String userId;
 
+    private UserWebsite userWebsite;
 
     public LocalDateTime getCreationDate() {
         return creationDate;
@@ -62,6 +63,10 @@ public class PostHistory implements AsteriModel {
         return userId;
     }
 
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -73,6 +78,7 @@ public class PostHistory implements AsteriModel {
                 .add("revisionGuId", revisionGuId)
                 .add("text", text)
                 .add("userId", userId)
+                .add("userWebsite", userWebsite)
                 .toString();
     }
 }

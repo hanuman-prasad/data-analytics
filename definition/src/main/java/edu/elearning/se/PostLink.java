@@ -21,6 +21,7 @@ public class PostLink implements AsteriModel {
     private String linkTypeId;
     private String postId;
     private String relatedPostId;
+    private UserWebsite userWebsite;
 
     public LocalDateTime getCreationDate() {
         return creationDate;
@@ -42,6 +43,10 @@ public class PostLink implements AsteriModel {
         return relatedPostId;
     }
 
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -50,6 +55,7 @@ public class PostLink implements AsteriModel {
                 .add("linkTypeId", linkTypeId)
                 .add("postId", postId)
                 .add("relatedPostId", relatedPostId)
+                .add("userWebsite", userWebsite)
                 .toString();
     }
 }

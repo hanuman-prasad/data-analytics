@@ -33,6 +33,8 @@ public class Post implements AsteriModel {
     private LocalDateTime lastEditDate;
     private LocalDateTime lastActivityDate;
 
+    private UserWebsite userWebsite;
+
     private PostType postType;
 
     public String getId() {
@@ -99,6 +101,10 @@ public class Post implements AsteriModel {
         return postType;
     }
 
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -117,6 +123,7 @@ public class Post implements AsteriModel {
                 .add("creationDate", creationDate)
                 .add("lastEditDate", lastEditDate)
                 .add("lastActivityDate", lastActivityDate)
+                .add("userWebsite", userWebsite)
                 .add("postType", postType)
                 .toString();
     }

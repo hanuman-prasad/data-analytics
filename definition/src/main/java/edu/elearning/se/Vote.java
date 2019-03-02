@@ -19,6 +19,7 @@ public class Vote implements AsteriModel {
     private String postId;
     private VoteType voteTypeId;
     private LocalDateTime creationDate;
+    private UserWebsite userWebsite;
 
     public String getId() {
         return id;
@@ -36,6 +37,10 @@ public class Vote implements AsteriModel {
         return creationDate;
     }
 
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -43,6 +48,7 @@ public class Vote implements AsteriModel {
                 .add("postId", postId)
                 .add("voteTypeId", voteTypeId)
                 .add("creationDate", creationDate)
+                .add("userWebsite", userWebsite)
                 .toString();
     }
 }

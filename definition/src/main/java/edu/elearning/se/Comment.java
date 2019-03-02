@@ -19,8 +19,10 @@ public class Comment implements AsteriModel {
     private String postId;
     private String score;
     private String text;
-    private LocalDateTime creationDate;
     private String userId;
+    private LocalDateTime creationDate;
+
+    private UserWebsite userWebsite;
 
     public String getId() {
         return id;
@@ -38,12 +40,16 @@ public class Comment implements AsteriModel {
         return text;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
     }
 
     @Override
@@ -53,8 +59,9 @@ public class Comment implements AsteriModel {
                 .add("postId", postId)
                 .add("score", score)
                 .add("text", text)
-                .add("creationDate", creationDate)
                 .add("userId", userId)
+                .add("creationDate", creationDate)
+                .add("userWebsite", userWebsite)
                 .toString();
     }
 }

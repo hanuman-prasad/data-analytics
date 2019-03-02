@@ -18,6 +18,7 @@ public class Tag implements AsteriModel {
     private String id;
     private String tagName;
     private String wikiPostId;
+    private UserWebsite userWebsite;
 
     public String getCount() {
         return count;
@@ -39,6 +40,10 @@ public class Tag implements AsteriModel {
         return wikiPostId;
     }
 
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -47,6 +52,7 @@ public class Tag implements AsteriModel {
                 .add("id", id)
                 .add("tagName", tagName)
                 .add("wikiPostId", wikiPostId)
+                .add("userWebsite", userWebsite)
                 .toString();
     }
 }

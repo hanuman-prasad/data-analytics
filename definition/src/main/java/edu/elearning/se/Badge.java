@@ -22,6 +22,7 @@ public class Badge implements AsteriModel {
     private String name;
     private String tagBased;
     private String userId;
+    private UserWebsite userWebsite;
 
     public BadgeClass getBadgeClass() {
         return badgeClass;
@@ -47,6 +48,10 @@ public class Badge implements AsteriModel {
         return userId;
     }
 
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -56,6 +61,7 @@ public class Badge implements AsteriModel {
                 .add("name", name)
                 .add("tagBased", tagBased)
                 .add("userId", userId)
+                .add("userWebsite", userWebsite)
                 .toString();
     }
 }
