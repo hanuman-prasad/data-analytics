@@ -26,20 +26,22 @@ public class TranslatorUtils {
 
         checkKeyForNullOrEmpty(dateName);
 
-        String dateValue = getValueFromInputMap(map, dateName);
+        String dateString = getValueFromInputMap(map, dateName);
 
-        checkValueForNullOrEmpty(dateValue);
+        if (StringUtils.isBlank(dateString)) {
+            return null;
+        }
 
         LocalDateTime localDateTime;
         try {
 
-            localDateTime = LocalDateTime.parse(dateValue);
+            localDateTime = LocalDateTime.parse(dateString);
         } catch (DateTimeParseException dte) {
-            LOG.warning("DateTimeParseException while parsing date : " + dateName + " value : " + dateValue);
+            LOG.warning("DateTimeParseException while parsing date : " + dateName + " value : " + dateString);
             throw new TranslationException(TranslationException.TranslationExceptionType.DATE_PARSING_EXCEPTION);
         }
 
-        LOG.log(Level.FINEST, "Date name : " + dateName + ", Date value : " + dateValue);
+        LOG.log(Level.FINEST, "Date name : " + dateName + ", Date value : " + dateString);
 
         return localDateTime;
 
@@ -48,7 +50,9 @@ public class TranslatorUtils {
 
     public static <T> T getEnum(Class<T> enumClass, String index) throws TranslationException {
 
-        checkValueForNullOrEmpty(index);
+        if (StringUtils.isBlank(index)) {
+            return null;
+        }
 
         int i;
 
@@ -68,17 +72,21 @@ public class TranslatorUtils {
         return enumConstants[i - 1];
     }
 
+    public static String removeHtmltag(String inputString) {
+
+        inputString = inputString.replaceAll("&lt;", "<");
+        inputString = inputString.replaceAll("&gt;", ">");
+        inputString = inputString.replaceAll("&quot;", "\"");
+        inputString = inputString.replaceAll("&#xA;", "\n");
+        inputString = inputString.replaceAll("</{0,1}[a-z]{1,8}>", "");
+
+        return inputString;
+    }
+
     private static void checkKeyForNullOrEmpty(String str) throws TranslationException {
         if (StringUtils.isBlank(str)) {
             LOG.warning("Key is empty!");
             throw new TranslationException(TranslationException.TranslationExceptionType.EMPTY_KEY);
-        }
-    }
-
-    private static void checkValueForNullOrEmpty(String str) throws TranslationException {
-        if (StringUtils.isBlank(str)) {
-            LOG.warning("Key is empty!");
-            throw new TranslationException(TranslationException.TranslationExceptionType.EMPTY_VALUE);
         }
     }
 }
