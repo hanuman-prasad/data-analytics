@@ -33,6 +33,7 @@ public class Post implements AsteriModel {
     private LocalDateTime lastEditDate;
     private LocalDateTime lastActivityDate;
 
+    @NonNull
     private UserWebsite userWebsite;
 
     private PostType postType;

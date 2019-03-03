@@ -19,6 +19,8 @@ public class Vote implements AsteriModel {
     private String postId;
     private VoteType voteTypeId;
     private LocalDateTime creationDate;
+
+    @NonNull
     private UserWebsite userWebsite;
 
     public String getId() {

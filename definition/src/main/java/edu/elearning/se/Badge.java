@@ -22,6 +22,7 @@ public class Badge implements AsteriModel {
     private String name;
     private String tagBased;
     private String userId;
+    @NonNull
     private UserWebsite userWebsite;
 
     public BadgeClass getBadgeClass() {

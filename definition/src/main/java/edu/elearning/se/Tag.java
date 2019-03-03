@@ -18,6 +18,7 @@ public class Tag implements AsteriModel {
     private String id;
     private String tagName;
     private String wikiPostId;
+    @NonNull
     private UserWebsite userWebsite;
 
     public String getCount() {

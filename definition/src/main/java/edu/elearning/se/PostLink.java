@@ -21,6 +21,7 @@ public class PostLink implements AsteriModel {
     private String linkTypeId;
     private String postId;
     private String relatedPostId;
+    @NonNull
     private UserWebsite userWebsite;
 
     public LocalDateTime getCreationDate() {

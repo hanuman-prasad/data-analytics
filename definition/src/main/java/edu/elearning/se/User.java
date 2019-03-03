@@ -36,6 +36,7 @@ public class User implements AsteriModel {
     @NonNull
     private LocalDateTime lastAccessDate;
 
+    @NonNull
     private UserWebsite userWebsite;
 
 

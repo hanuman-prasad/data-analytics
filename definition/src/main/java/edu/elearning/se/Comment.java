@@ -22,6 +22,7 @@ public class Comment implements AsteriModel {
     private String userId;
     private LocalDateTime creationDate;
 
+    @NonNull
     private UserWebsite userWebsite;
 
     public String getId() {

@@ -29,6 +29,7 @@ public class PostHistory implements AsteriModel {
     private String text;
     private String userId;
 
+    @NonNull
     private UserWebsite userWebsite;
 
     public LocalDateTime getCreationDate() {
