@@ -21,11 +21,11 @@ public class PostTranslator implements Translator<Post> {
         Post post = Post.builder()
 
                 .id(getValueFromInputMap(map, "id"))
-                .postType(getEnum(PostType.class, getValueFromInputMap(map, "posttypeid")))
+                .postType(getEnumFromEnumIndex(PostType.class, getValueFromInputMap(map, "posttypeid")))
                 .acceptedAnswerId(getValueFromInputMap(map, "acceptedanswerid"))
                 .score(getValueFromInputMap(map, "score"))
                 .viewCount(getValueFromInputMap(map, "viewcount"))
-                .body(removeHtmltag(getValueFromInputMap(map, "body")))
+                .body(removeHtmlTag(getValueFromInputMap(map, "body")))
                 .ownerUserId(getValueFromInputMap(map, "owneruserid"))
                 .lastEditorUserId(getValueFromInputMap(map, "lasteditoruserid"))
                 .title(getValueFromInputMap(map, "title"))

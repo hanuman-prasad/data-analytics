@@ -1,10 +1,12 @@
 package edu.elearning.translator;
 
 import edu.elearning.se.User;
+import edu.elearning.se.UserWebsite;
 
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
 import static edu.elearning.translator.TranslatorUtils.getLocalDate;
 import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
@@ -31,6 +33,7 @@ public class UserTranslator implements Translator<User> {
                 .websiteUrl(getValueFromInputMap(map, "websiteurl"))
                 .creationDate(getLocalDate(map, "creationdate"))
                 .lastAccessDate(getLocalDate(map, "lastaccessdate"))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
                 .build();
 
         LOG.info("Translation completed for User : " + user.getId());

@@ -19,7 +19,7 @@ public class VoteTranslator implements Translator<Vote> {
         Vote vote = Vote.builder()
                 .id(TranslatorUtils.getValueFromInputMap(map, "id"))
                 .postId(getValueFromInputMap(map, "postid"))
-                .voteTypeId(getEnum(VoteType.class, getValueFromInputMap(map, "votetypeid")))
+                .voteTypeId(getEnumFromEnumIndex(VoteType.class, getValueFromInputMap(map, "votetypeid")))
                 .creationDate(getLocalDate(map, "creationdate"))
                 .build();
 

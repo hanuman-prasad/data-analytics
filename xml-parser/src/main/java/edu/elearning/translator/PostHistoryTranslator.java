@@ -24,7 +24,7 @@ public class PostHistoryTranslator implements Translator<PostHistory> {
                 .text(getValueFromInputMap(map, "text"))
                 .userId(getValueFromInputMap(map, "userid"))
                 .creationDate(getLocalDate(map, "creationdate"))
-                .postHistoryType(getEnum(PostHistoryType.class, getValueFromInputMap(map, "posthistorytypeid")))
+                .postHistoryType(getEnumFromEnumIndex(PostHistoryType.class, getValueFromInputMap(map, "posthistorytypeid")))
                 .build();
 
         LOG.info("Translation completed for PostHistory entity. Id - " + postHistory.getId());

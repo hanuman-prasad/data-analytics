@@ -48,7 +48,7 @@ public class TranslatorUtils {
     }
 
 
-    public static <T> T getEnum(Class<T> enumClass, String index) throws TranslationException {
+    public static <T> T getEnumFromEnumIndex(Class<T> enumClass, String index) throws TranslationException {
 
         if (StringUtils.isBlank(index)) {
             return null;
@@ -72,7 +72,17 @@ public class TranslatorUtils {
         return enumConstants[i - 1];
     }
 
-    public static String removeHtmltag(String inputString) {
+    public static <T extends Enum<T>> T getEnumFromString(Class<T> c, String string) {
+        if( c != null && string != null ) {
+            try {
+                return Enum.valueOf(c, string.trim().toUpperCase());
+            } catch(IllegalArgumentException ex) {
+            }
+        }
+        return null;
+    }
+
+    public static String removeHtmlTag(String inputString) {
 
         inputString = inputString.replaceAll("&lt;", "<");
         inputString = inputString.replaceAll("&gt;", ">");

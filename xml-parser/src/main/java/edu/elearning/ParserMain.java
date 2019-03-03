@@ -20,10 +20,12 @@ public class ParserMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/temp/");
+        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/beer/");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
         for (File file : files) {
+
+            final String website_name = file.getParentFile().getName();
 
             String name = file.getName();
 
@@ -46,6 +48,7 @@ public class ParserMain {
                 line = xmlFileReader.readLineFromXmlFile();
 
                 if (!map.isEmpty()) {
+                    map.put("se_website", website_name);
                     AsteriModel asteriModel = null;
                     try {
                         asteriModel = translator.translate(map);
