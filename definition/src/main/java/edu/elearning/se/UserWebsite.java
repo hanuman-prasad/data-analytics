@@ -4,5 +4,5 @@ public enum UserWebsite {
 
     STACKOVERFLOW,
     BEER,
-    HRADWARE
+    HARDWARE
 }
