@@ -18,7 +18,7 @@ public class PostLink implements AsteriModel {
     @NonNull
     @EqualsAndHashCode.Include
     private String id;
-    private String linkTypeId;
+    private LinkType linkType;
     private String postId;
     private String relatedPostId;
     @NonNull
@@ -32,8 +32,8 @@ public class PostLink implements AsteriModel {
         return id;
     }
 
-    public String getLinkTypeId() {
-        return linkTypeId;
+    public LinkType getLinkType() {
+        return linkType;
     }
 
     public String getPostId() {
@@ -53,7 +53,7 @@ public class PostLink implements AsteriModel {
         return MoreObjects.toStringHelper(this)
                 .add("creationDate", creationDate)
                 .add("id", id)
-                .add("linkTypeId", linkTypeId)
+                .add("linkType", linkType)
                 .add("postId", postId)
                 .add("relatedPostId", relatedPostId)
                 .add("userWebsite", userWebsite)
