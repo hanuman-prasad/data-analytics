@@ -6,9 +6,7 @@ import edu.elearning.se.UserWebsite;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
-import static edu.elearning.translator.TranslatorUtils.getLocalDate;
-import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.*;
 
 public class CommentTranslator implements Translator<Comment> {
 
@@ -20,7 +18,7 @@ public class CommentTranslator implements Translator<Comment> {
         LOG.info("Translation started for Comment entity. id : " + getValueFromInputMap(map, "id"));
 
         Comment comment = Comment.builder()
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .postId(getValueFromInputMap(map, "postid"))
                 .score(getValueFromInputMap(map, "score"))
                 .text(getValueFromInputMap(map, "text"))

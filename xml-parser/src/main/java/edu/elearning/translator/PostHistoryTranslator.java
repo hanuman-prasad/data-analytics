@@ -18,7 +18,7 @@ public class PostHistoryTranslator implements Translator<PostHistory> {
         LOG.info("Translation started for PostHistory entity. Id - " + getValueFromInputMap(map, "id"));
 
         PostHistory postHistory = PostHistory.builder()
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .comment(getValueFromInputMap(map, "comment"))
                 .postId(getValueFromInputMap(map, "postid"))
                 .revisionGuId(getValueFromInputMap(map, "revisionguid"))

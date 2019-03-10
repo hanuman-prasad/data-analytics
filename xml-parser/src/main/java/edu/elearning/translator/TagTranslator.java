@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
+import static edu.elearning.translator.TranslatorUtils.getIdWithWebsitePrefix;
 import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
 public class TagTranslator implements Translator<Tag> {
@@ -19,7 +20,7 @@ public class TagTranslator implements Translator<Tag> {
         LOG.info("Translation started for Tag entity. Id : " + getValueFromInputMap(map, "id"));
 
         Tag tag = Tag.builder()
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .tagName(getValueFromInputMap(map, "tagname"))
                 .count(getValueFromInputMap(map, "count"))
                 .excerptPostId(getValueFromInputMap(map, "excerptpostid"))

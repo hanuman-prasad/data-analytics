@@ -19,7 +19,7 @@ public class PostLinkTranslator implements Translator<PostLink> {
         LOG.info("Translation started for PostLink entity. Id : " + getValueFromInputMap(map, "id"));
 
         PostLink postLink = PostLink.builder()
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .linkType(getEnumFromEnumIndex(LinkType.class,getValueFromInputMap(map, "linktypeid")))
                 .postId(getValueFromInputMap(map, "postid"))
                 .relatedPostId(getValueFromInputMap(map, "relatedpostid"))

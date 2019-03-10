@@ -6,9 +6,7 @@ import edu.elearning.se.UserWebsite;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
-import static edu.elearning.translator.TranslatorUtils.getLocalDate;
-import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.*;
 
 public class UserTranslator implements Translator<User> {
 
@@ -20,7 +18,7 @@ public class UserTranslator implements Translator<User> {
         LOG.info("Translation started..");
 
         User user = User.builder()
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .displayName(getValueFromInputMap(map, "displayname"))
                 .accountId(getValueFromInputMap(map, "accountid"))
                 .location(getValueFromInputMap(map, "location"))

@@ -1,5 +1,6 @@
 package edu.elearning.translator;
 
+import edu.elearning.se.UserWebsite;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
@@ -80,6 +81,11 @@ public class TranslatorUtils {
             }
         }
         return null;
+    }
+
+
+    public static String getIdWithWebsitePrefix(final Map<String, String> map) throws TranslationException {
+        return getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")) +"-" + getValueFromInputMap(map, "id");
     }
 
     public static String removeHtmlTag(String inputString) {

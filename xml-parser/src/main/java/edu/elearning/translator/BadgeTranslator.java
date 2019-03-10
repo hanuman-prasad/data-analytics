@@ -7,9 +7,7 @@ import edu.elearning.se.UserWebsite;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
-import static edu.elearning.translator.TranslatorUtils.getLocalDate;
-import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
+import static edu.elearning.translator.TranslatorUtils.*;
 
 
 public class BadgeTranslator implements Translator<Badge> {
@@ -23,7 +21,7 @@ public class BadgeTranslator implements Translator<Badge> {
         LOG.info("Translation started for Badge entity. id : " + getValueFromInputMap(map, "id"));
 
         Badge badge = Badge.builder()
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .name(getValueFromInputMap(map, "name"))
                 .tagBased(getValueFromInputMap(map, "tagbased"))
                 .userId(getValueFromInputMap(map, "userid"))

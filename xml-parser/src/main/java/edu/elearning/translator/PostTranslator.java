@@ -21,7 +21,7 @@ public class PostTranslator implements Translator<Post> {
 
         Post post = Post.builder()
 
-                .id(getValueFromInputMap(map, "id"))
+                .id(getIdWithWebsitePrefix(map))
                 .postType(getEnumFromEnumIndex(PostType.class, getValueFromInputMap(map, "posttypeid")))
                 .acceptedAnswerId(getValueFromInputMap(map, "acceptedanswerid"))
                 .score(getValueFromInputMap(map, "score"))
