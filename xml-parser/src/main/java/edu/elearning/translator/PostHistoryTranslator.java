@@ -2,6 +2,7 @@ package edu.elearning.translator;
 
 import edu.elearning.se.PostHistory;
 import edu.elearning.se.PostHistoryType;
+import edu.elearning.se.UserWebsite;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class PostHistoryTranslator implements Translator<PostHistory> {
                 .userId(getValueFromInputMap(map, "userid"))
                 .creationDate(getLocalDate(map, "creationdate"))
                 .postHistoryType(getEnumFromEnumIndex(PostHistoryType.class, getValueFromInputMap(map, "posthistorytypeid")))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
                 .build();
 
         LOG.info("Translation completed for PostHistory entity. Id - " + postHistory.getId());

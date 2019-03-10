@@ -1,5 +1,6 @@
 package edu.elearning.translator;
 
+import edu.elearning.se.UserWebsite;
 import edu.elearning.se.Vote;
 import edu.elearning.se.VoteType;
 
@@ -21,6 +22,7 @@ public class VoteTranslator implements Translator<Vote> {
                 .postId(getValueFromInputMap(map, "postid"))
                 .voteTypeId(getEnumFromEnumIndex(VoteType.class, getValueFromInputMap(map, "votetypeid")))
                 .creationDate(getLocalDate(map, "creationdate"))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
                 .build();
 
         LOG.info("Translation completed for Tag entity. Id : " + vote);

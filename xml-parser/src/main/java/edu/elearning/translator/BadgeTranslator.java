@@ -2,10 +2,12 @@ package edu.elearning.translator;
 
 import edu.elearning.se.Badge;
 import edu.elearning.se.BadgeClass;
+import edu.elearning.se.UserWebsite;
 
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
 import static edu.elearning.translator.TranslatorUtils.getLocalDate;
 import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
@@ -27,6 +29,7 @@ public class BadgeTranslator implements Translator<Badge> {
                 .userId(getValueFromInputMap(map, "userid"))
                 .date(getLocalDate(map, "date"))
                 .badgeClass(getBadgeClass(getValueFromInputMap(map, "class")))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
                 .build();
 
 

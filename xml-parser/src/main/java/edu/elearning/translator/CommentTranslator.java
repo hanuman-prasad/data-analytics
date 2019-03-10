@@ -1,10 +1,12 @@
 package edu.elearning.translator;
 
 import edu.elearning.se.Comment;
+import edu.elearning.se.UserWebsite;
 
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static edu.elearning.translator.TranslatorUtils.getEnumFromString;
 import static edu.elearning.translator.TranslatorUtils.getLocalDate;
 import static edu.elearning.translator.TranslatorUtils.getValueFromInputMap;
 
@@ -24,6 +26,7 @@ public class CommentTranslator implements Translator<Comment> {
                 .text(getValueFromInputMap(map, "text"))
                 .creationDate(getLocalDate(map, "creationdate"))
                 .userId(getValueFromInputMap(map, "userid"))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
                 .build();
 
         LOG.info("Translation completed for Tag entity. Id : " + comment);

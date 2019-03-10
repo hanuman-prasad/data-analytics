@@ -20,7 +20,7 @@ public class ParserMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/beer/");
+        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/hardware/");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
         for (File file : files) {
@@ -49,7 +49,7 @@ public class ParserMain {
 
                 if (!map.isEmpty()) {
                     map.put("se_website", website_name);
-                    AsteriModel asteriModel = null;
+                    AsteriModel asteriModel;
                     try {
                         asteriModel = translator.translate(map);
                     } catch (TranslationException e) {
@@ -59,6 +59,8 @@ public class ParserMain {
                     models.add(asteriModel);
                 }
             }
+
+            LOG.info("Entity " + name + " successfully loaded for website " + website_name.toUpperCase() + " : Counts = " + models.size() + ", Exceptions = " + exceptions.size());
 
             modelMap.put(name, models);
 

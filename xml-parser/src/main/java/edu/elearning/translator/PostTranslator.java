@@ -2,6 +2,7 @@ package edu.elearning.translator;
 
 import edu.elearning.se.Post;
 import edu.elearning.se.PostType;
+import edu.elearning.se.UserWebsite;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ public class PostTranslator implements Translator<Post> {
                 .creationDate(getLocalDate(map, "creationdate"))
                 .lastEditDate(getLocalDate(map, "lasteditdate"))
                 .lastActivityDate(getLocalDate(map, "lastactivitydate"))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
                 .build();
 
         LOG.info("Translation completed for Post - " + post.getId());
