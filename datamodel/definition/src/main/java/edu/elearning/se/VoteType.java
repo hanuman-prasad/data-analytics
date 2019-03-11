@@ -1,0 +1,21 @@
+package edu.elearning.se;
+
+public enum VoteType {
+
+    ACCEPTEDBYORIGINATOR,
+    UPVOTE,
+    DOWNVOTE,
+    OFFENSIVE,
+    FAVORITE,
+    CLOSE,
+    REOPEN,
+    BOUNTYSTART,
+    BOUNTYCLOSE,
+    DELETION,
+    UNDELETION,
+    SPAM,
+    UNKNOWN_0,
+    UNKNOWN_1,
+    MODERATORREVIEW,
+    APPROVEEDITSUGGESTION
+}
