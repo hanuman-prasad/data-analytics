@@ -1,5 +1,6 @@
 rootProject.name = 'data-analytics'
-include 'datamodel'
-include 'services'
+include 'datamodel:definition'
+include 'services:data-cache'
+include 'services:gateway'
 include 'persistence'
 

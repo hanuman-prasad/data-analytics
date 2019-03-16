@@ -1,4 +1,0 @@
-rootProject.name = 'datamodel'
-include 'definition'
-include 'compiler'
-
