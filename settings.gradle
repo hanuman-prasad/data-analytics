@@ -1,3 +1,4 @@
+rootProject.name = 'data-analytics'
 include 'datamodel'
 include 'services'
 include 'persistence'
