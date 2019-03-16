@@ -3,3 +3,13 @@ dependencies {
 }
 
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'datamodel-def'
+            from components.java
+
+        }
+    }
+}
+
