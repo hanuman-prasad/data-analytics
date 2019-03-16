@@ -1,15 +1,21 @@
 package edu.elearning.cassandra.schema;
 
+import com.datastax.driver.core.BoundStatement;
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import edu.elearning.cassandra.connection.CassandraConnector;
+import edu.elearning.cassandra.connection.CassandraConnectionManager;
+import edu.elearning.cassandra.serializer.AsteriModelSerializerImpl;
+import edu.elearning.se.Badge;
+import edu.elearning.se.UserWebsite;
+import org.apache.cassandra.utils.UUIDGen;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import java.nio.ByteBuffer;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,7 +28,7 @@ public class CassandraSchemaTest {
 
     @Before
     public void connect() {
-        CassandraConnector client = new CassandraConnector();
+        CassandraConnectionManager client = new CassandraConnectionManager();
         client.connect("127.0.0.1", 9042);
         this.session = client.getSession();
         keyspaceSchema = new KeyspaceSchema(session);
@@ -50,9 +56,38 @@ public class CassandraSchemaTest {
         assertTrue(createdKeySpace.isPresent());
         assertTrue(keyspaceName.equals(createdKeySpace.get()));
 
-        ResultSet dropKeyspace = session.execute("DROP KEYSPACE " + keyspaceName + SEMI_COLON);
 
-        List<Row> all = dropKeyspace.all();
+        session.execute("DROP KEYSPACE " + keyspaceName + SEMI_COLON);
+
+    }
+
+    @Test
+    public void insert_test() {
+
+        Badge badge = Badge.builder()
+                .id("4444")
+                .name("BRONZ")
+                .userWebsite(UserWebsite.BEER)
+                .tagBased("undefined")
+                .build();
+
+        PreparedStatement prepared = session.prepare("INSERT INTO local_entities.staxdata (key, payload) VALUES (?, ?)");
+
+        UUID timeUUID = UUIDGen.getTimeUUID();
+        AsteriModelSerializerImpl asteriModelSerializer = new AsteriModelSerializerImpl();
+        ByteBuffer serialize = asteriModelSerializer.serialize(badge);
+        BoundStatement bound = prepared.bind(timeUUID, serialize);
+        session.execute(bound);
+
+        ResultSet result = session.execute("SELECT * FROM local_entities.staxdata;");
+
+        result.all()
+                .stream()
+                .forEach(r -> {
+                    System.out.println(asteriModelSerializer.deserialize(r.getBytes("payload")));
+                });
+
+        System.out.println("-----");
     }
 
 }
