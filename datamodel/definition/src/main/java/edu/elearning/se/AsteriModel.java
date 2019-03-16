@@ -1,4 +1,6 @@
 package edu.elearning.se;
 
-public interface AsteriModel {
+import java.io.Serializable;
+
+public interface AsteriModel extends Serializable {
 }
