@@ -3,4 +3,5 @@ include 'datamodel:definition'
 include 'services:data-cache'
 include 'services:gateway'
 include 'persistence'
+include 'tools:data-loader'
 

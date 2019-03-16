@@ -1,3 +1,0 @@
-rootProject.name = 'data-loader'
-include 'xml-parser'
-
