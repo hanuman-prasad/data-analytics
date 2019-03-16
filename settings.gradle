@@ -1,2 +1,4 @@
+include 'datamodel'
+include 'services'
 include 'persistence'
 
