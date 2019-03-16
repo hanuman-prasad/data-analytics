@@ -1,26 +1,28 @@
-plugins {
-    id 'java'
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    group 'edu.elearning'
+    version = 'DYNAMIC-SNAPSHOT'
+    sourceCompatibility = 1.8
 
-group 'edu.learning'
-
-sourceCompatibility = 1.8
-
-allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
     }
+
+    dependencies {
+        compile group: 'com.google.guava', name: 'guava', version: '18.0'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = 'datamodel-def'
+                from components.java
+
+            }
+        }
+    }
 }
 
-
-
-subprojects {
-    version = 'local-SNAPSHOT'
-}
-
-
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
