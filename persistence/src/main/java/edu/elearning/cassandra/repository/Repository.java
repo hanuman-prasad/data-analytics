@@ -4,5 +4,5 @@ import edu.elearning.se.AsteriModel;
 
 public interface Repository {
 
-    public void save(Class<? extends AsteriModel> typeClass, AsteriModel model);
+    public void save(AsteriModel model);
 }

@@ -8,8 +8,9 @@ USE local_entities;
 
 CREATE TABLE IF NOT EXISTS staxdata (
 key uuid,
+entity_id text,
 payload blob,
-PRIMARY KEY (key)
+PRIMARY KEY (key, entity_id)
 );
 
 CREATE TABLE IF NOT EXISTS entity_projection_1 (

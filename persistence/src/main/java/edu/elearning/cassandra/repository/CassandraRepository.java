@@ -16,8 +16,8 @@ public class CassandraRepository implements Repository {
     }
 
     @Override
-    public void save(Class<? extends AsteriModel> typeClass, AsteriModel model) {
+    public void save(AsteriModel model) {
 
-        insert.insert(typeClass, model);
+        insert.insert(model);
     }
 }

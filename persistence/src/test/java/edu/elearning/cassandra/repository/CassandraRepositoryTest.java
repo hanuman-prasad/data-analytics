@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.*;
-
 public class CassandraRepositoryTest {
 
     private Session session;
@@ -34,7 +32,7 @@ public class CassandraRepositoryTest {
                 .userWebsite(UserWebsite.HARDWARE)
                 .build();
 
-        repository.save(User.class, user);
+        repository.save(user);
 
     }
 }

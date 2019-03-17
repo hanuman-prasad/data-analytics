@@ -21,7 +21,7 @@ public class CassandraInsertOps implements CassandraOps {
 
     private static PreparedStatement preparedStaxdata;
     private static PreparedStatement preparedProjection;
-    private static final String STAXDATA_QUERY = "INSERT INTO local_entities.staxdata (key, payload) VALUES (?, ?)";
+    private static final String STAXDATA_QUERY = "INSERT INTO local_entities.staxdata (key, entity_id, payload) VALUES (?, ?, ?)";
     private static final String PROJECTION_QUERY = "INSERT INTO local_entities.entity_projection_1 (entity_class, index_name, index_value, entity_id, key) VALUES (?, ?, ?, ?, ?)";
 
     public CassandraInsertOps(Session session) {
@@ -29,13 +29,13 @@ public class CassandraInsertOps implements CassandraOps {
     }
 
     @Override
-    public void insert(Class<? extends AsteriModel> kClass, AsteriModel model) {
-        String modelName = kClass.getSimpleName();
+    public void insert(AsteriModel model) {
+        String modelName = model.getClass().getSimpleName();
 
         List<BoundStatement> statements = new ArrayList<>(2);
 
         UUID key = UUIDGen.getTimeUUID();
-        statements.add(createStaxdataInsertQuery(modelName, model, key));
+        statements.add(createStaxdataInsertQuery(model, key));
 
         statements.addAll(createProjectionQuery(modelName, model, key));
 
@@ -56,20 +56,28 @@ public class CassandraInsertOps implements CassandraOps {
 
         List<BoundStatement> statements = new ArrayList<>(projections.size());
 
+        if (projections.isEmpty()) {
+            prepareStatements(modelName, model, key, statements, "id");
+        }
+
         projections.stream()
                 .forEach(p -> {
-                            Object indexValue = FieldManipulator.getFieldValue(model, p);
-                            if(indexValue == null) {
-                                return;
-                            }
-
-                            BoundStatement bind = preparedProjection.bind(modelName, p, indexValue, model.getId(), key);
-                            statements.add(bind);
+                            prepareStatements(modelName, model, key, statements, p);
                         }
                 );
 
 
         return statements;
+    }
+
+    private void prepareStatements(String modelName, AsteriModel model, UUID key, List<BoundStatement> statements, String p) {
+        Object indexValue = FieldManipulator.getFieldValue(model, p);
+        if (indexValue == null) {
+            return;
+        }
+
+        BoundStatement bind = preparedProjection.bind(modelName, p, indexValue, model.getId(), key);
+        statements.add(bind);
     }
 
     private List<String> getProjectionForModel(String model) {
@@ -78,7 +86,7 @@ public class CassandraInsertOps implements CassandraOps {
 
     }
 
-    private BoundStatement createStaxdataInsertQuery(String modelName, AsteriModel model, UUID key) {
+    private BoundStatement createStaxdataInsertQuery(AsteriModel model, UUID key) {
 
         if (preparedStaxdata == null) {
             preparedStaxdata = session.prepare(STAXDATA_QUERY);
@@ -86,6 +94,6 @@ public class CassandraInsertOps implements CassandraOps {
 
 
         ByteBuffer serialize = AsteriModelSerializer.serialize(model);
-        return preparedStaxdata.bind(key, serialize);
+        return preparedStaxdata.bind(key, FieldManipulator.getFieldValue(model, "id"), serialize);
     }
 }

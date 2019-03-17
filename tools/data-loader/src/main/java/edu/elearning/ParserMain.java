@@ -1,5 +1,7 @@
 package edu.elearning;
 
+import edu.elearning.cassandra.connection.CassandraConnectionFactory;
+import edu.elearning.cassandra.repository.CassandraRepository;
 import edu.elearning.regex.StackExchangeRegex;
 import edu.elearning.se.AsteriModel;
 import edu.elearning.se.UserWebsite;
@@ -9,6 +11,7 @@ import edu.elearning.translator.TranslatorRegistry;
 import edu.elearning.xml.XmlFileHelper;
 import edu.elearning.xml.XmlFileReader;
 import edu.elearning.xml.XmlFileReaderImpl;
+import edu.elearning.cassandra.repository.Repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,8 +26,11 @@ public class ParserMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/beer/");
+        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/hardware/");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
+
+        Repository repository = new CassandraRepository(CassandraConnectionFactory.getSession());
+
 
         for (File file : files) {
 
@@ -65,6 +71,7 @@ public class ParserMain {
                         continue;
                     }
                     models.add(asteriModel);
+                    repository.save(asteriModel);
                 }
             }
 
