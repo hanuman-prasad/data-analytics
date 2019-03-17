@@ -1,5 +1,6 @@
 package edu.elearning.se;
 
+import com.google.common.base.MoreObjects;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,24 +40,80 @@ public class User implements AsteriModel {
     @NonNull
     private UserWebsite userWebsite;
 
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public String getUpVotes() {
+        return upVotes;
+    }
+
+    public String getDownVotes() {
+        return downVotes;
+    }
+
+    public String getReputation() {
+        return reputation;
+    }
+
+    public String getViews() {
+        return views;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDateTime getLastAccessDate() {
+        return lastAccessDate;
+    }
+
+    public UserWebsite getUserWebsite() {
+        return userWebsite;
+    }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", location='" + location + '\'' +
-                ", accountId='" + accountId + '\'' +
-                ", upVotes='" + upVotes + '\'' +
-                ", downVotes='" + downVotes + '\'' +
-                ", reputation='" + reputation + '\'' +
-                ", views='" + views + '\'' +
-                ", websiteUrl='" + websiteUrl + '\'' +
-                ", aboutMe='" + aboutMe + '\'' +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                ", creationDate=" + creationDate +
-                ", lastAccessDate=" + lastAccessDate +
-                ", userWebsite=" + userWebsite +
-                '}';
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("displayName", displayName)
+                .add("location", location)
+                .add("accountId", accountId)
+                .add("upVotes", upVotes)
+                .add("downVotes", downVotes)
+                .add("reputation", reputation)
+                .add("views", views)
+                .add("websiteUrl", websiteUrl)
+                .add("aboutMe", aboutMe)
+                .add("profileImageUrl", profileImageUrl)
+                .add("creationDate", creationDate)
+                .add("lastAccessDate", lastAccessDate)
+                .add("userWebsite", userWebsite)
+                .toString();
     }
 }
