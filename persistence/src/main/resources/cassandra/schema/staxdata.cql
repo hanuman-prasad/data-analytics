@@ -12,10 +12,10 @@ payload blob,
 PRIMARY KEY (key)
 );
 
-CREATE TABLE IF NOT EXISTS entity_index_1 (
+CREATE TABLE IF NOT EXISTS entity_projection_1 (
 entity_class text,
 index_name text,
-index_value blob,
+index_value text,
 entity_id text,
 key uuid,
 PRIMARY KEY ((entity_class, index_name, index_value), entity_id)

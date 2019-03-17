@@ -5,7 +5,7 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import edu.elearning.cassandra.connection.CassandraConnectionManager;
-import edu.elearning.cassandra.serializer.AsteriModelSerializerImpl;
+import edu.elearning.cassandra.serializer.AsteriModelSerializer;
 import edu.elearning.se.Badge;
 import edu.elearning.se.UserWebsite;
 import org.apache.cassandra.utils.UUIDGen;
@@ -74,8 +74,7 @@ public class CassandraSchemaTest {
         PreparedStatement prepared = session.prepare("INSERT INTO local_entities.staxdata (key, payload) VALUES (?, ?)");
 
         UUID timeUUID = UUIDGen.getTimeUUID();
-        AsteriModelSerializerImpl asteriModelSerializer = new AsteriModelSerializerImpl();
-        ByteBuffer serialize = asteriModelSerializer.serialize(badge);
+        ByteBuffer serialize = AsteriModelSerializer.serialize(badge);
         BoundStatement bound = prepared.bind(timeUUID, serialize);
         session.execute(bound);
 
@@ -84,7 +83,7 @@ public class CassandraSchemaTest {
         result.all()
                 .stream()
                 .forEach(r -> {
-                    System.out.println(asteriModelSerializer.deserialize(r.getBytes("payload")));
+                    System.out.println(AsteriModelSerializer.deserialize(r.getBytes("payload")));
                 });
 
         System.out.println("-----");
