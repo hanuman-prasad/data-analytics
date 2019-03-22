@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -24,7 +25,7 @@ public class Post implements AsteriModel {
     private String ownerUserId;
     private String lastEditorUserId;
     private String title;
-    private String tags;
+    private List<String> tags;
     private String answerCount;
     private String commentCount;
     private String favoriteCount;
@@ -70,7 +71,7 @@ public class Post implements AsteriModel {
         return title;
     }
 
-    public String getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
