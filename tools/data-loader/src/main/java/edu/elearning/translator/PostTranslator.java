@@ -3,9 +3,13 @@ package edu.elearning.translator;
 import edu.elearning.se.Post;
 import edu.elearning.se.PostType;
 import edu.elearning.se.UserWebsite;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static edu.elearning.translator.TranslatorUtils.*;
 
@@ -30,18 +34,33 @@ public class PostTranslator implements Translator<Post> {
                 .ownerUserId(getValueFromInputMap(map, "owneruserid"))
                 .lastEditorUserId(getValueFromInputMap(map, "lasteditoruserid"))
                 .title(getValueFromInputMap(map, "title"))
-                .tags(getValueFromInputMap(map, "tags"))
+                .tags(parseTags(getValueFromInputMap(map, "tags")))
                 .answerCount(getValueFromInputMap(map, "answercount"))
                 .commentCount(getValueFromInputMap(map, "commentcount"))
                 .favoriteCount(getValueFromInputMap(map, "favoritecount"))
                 .creationDate(getLocalDate(map, "creationdate"))
                 .lastEditDate(getLocalDate(map, "lasteditdate"))
                 .lastActivityDate(getLocalDate(map, "lastactivitydate"))
-                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map,"se_website")))
+                .userWebsite(getEnumFromString(UserWebsite.class, getValueFromInputMap(map, "se_website")))
                 .build();
 
         LOG.info("Translation completed for Post - " + post.getId());
 
         return post;
+    }
+
+    private List<String> parseTags(String tags) {
+        if (StringUtils.isBlank(tags)) {
+            return null;
+        }
+
+        tags = tags.replaceAll("&lt", "");
+        tags = tags.replaceAll("&gt", "");
+
+        return Arrays.stream(tags.split(";"))
+                .filter(StringUtils::isNoneBlank)
+                .map(String::trim)
+                .collect(Collectors.toList());
+
     }
 }
