@@ -19,16 +19,16 @@ public class AsteriModelSerializer {
         return ByteBuffer.wrap(new byte[]{});
     }
 
-    public static Object deserialize(ByteBuffer blob) {
-        Object ob = null;
+    public static AsteriModel deserialize(ByteBuffer blob) {
+        AsteriModel model = null;
         try (ByteArrayInputStream inputStream = new ByteArrayInputStream(blob.array())) {
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            ob = objectInputStream.readObject();
+            model = (AsteriModel) objectInputStream.readObject();
         } catch (IOException e) {
             //TODO : log it
         } catch (ClassNotFoundException e) {
 
         }
-        return ob;
+        return model;
     }
 }

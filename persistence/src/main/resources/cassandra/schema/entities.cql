@@ -6,14 +6,25 @@ WITH replication = {
 
 USE local_entities;
 
-CREATE TABLE IF NOT EXISTS staxdata (
+CREATE TABLE IF NOT EXISTS entities (
 key uuid,
 entity_id text,
 payload blob,
 PRIMARY KEY (key, entity_id)
 );
 
-CREATE TABLE IF NOT EXISTS entity_projection_1 (
+
+CREATE TABLE IF NOT EXISTS entities_model (
+website text,
+entity_class text,
+name text,
+value text,
+key uuid,
+PRIMARY KEY (website, entity_class, name, value)
+);
+
+
+CREATE TABLE IF NOT EXISTS entities_projection_1 (
 entity_class text,
 index_name text,
 index_value text,
