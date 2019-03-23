@@ -4,5 +4,5 @@ import java.io.Serializable;
 
 public interface AsteriModel extends Serializable {
     String getId();
-    String getUserWebsite();
+    UserWebsite getUserWebsite();
 }
