@@ -1,17 +1,20 @@
 package edu.elearning.cassandra.repository;
 
-import com.datastax.driver.core.Session;
+import edu.elearning.cassandra.connection.CassandraConnectionFactory;
 import edu.elearning.cassandra.repository.ops.CassandraOperations;
 import edu.elearning.se.AsteriModel;
 
+/**
+ * client should use this class's instance to interact with cassandra
+ */
 public class CassandraRepository implements Repository {
 
 
     private final CassandraOperations cassandraOps;
 
 
-    public CassandraRepository(Session session) {
-        cassandraOps = new CassandraOperations(session);
+    public CassandraRepository() {
+        cassandraOps = new CassandraOperations(CassandraConnectionFactory.getSession());
     }
 
     @Override

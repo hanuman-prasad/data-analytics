@@ -1,6 +1,5 @@
 package edu.elearning;
 
-import edu.elearning.cassandra.connection.CassandraConnectionFactory;
 import edu.elearning.cassandra.repository.CassandraRepository;
 import edu.elearning.regex.StackExchangeRegex;
 import edu.elearning.se.AsteriModel;
@@ -29,7 +28,7 @@ public class ParserMain {
         List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/hardware/");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
-        Repository repository = new CassandraRepository(CassandraConnectionFactory.getSession());
+        Repository repository = new CassandraRepository();
 
 
         for (File file : files) {

@@ -20,7 +20,7 @@ public class CassandraRepositoryTest {
     @Test
     public void save() {
 
-        CassandraRepository repository = new CassandraRepository(session);
+        CassandraRepository repository = new CassandraRepository();
 
         User user = User.builder()
                 .id("HARDWARE-1")
