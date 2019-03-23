@@ -1,23 +1,21 @@
 package edu.elearning.cassandra.repository;
 
 import com.datastax.driver.core.Session;
-import edu.elearning.cassandra.repository.ops.CassandraInsertOps;
-import edu.elearning.cassandra.repository.ops.CassandraOps;
+import edu.elearning.cassandra.repository.ops.CassandraOperations;
 import edu.elearning.se.AsteriModel;
 
 public class CassandraRepository implements Repository {
 
 
-    private final CassandraOps insert;
+    private final CassandraOperations cassandraOps;
 
 
     public CassandraRepository(Session session) {
-        insert = new CassandraInsertOps(session);
+        cassandraOps = new CassandraOperations(session);
     }
 
     @Override
     public void save(AsteriModel model) {
-
-        insert.insert(model);
+        cassandraOps.insert(model);
     }
 }

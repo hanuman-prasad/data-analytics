@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class CassandraInsertOps implements CassandraOps {
+public class CassandraOperations {
 
     private final Session session;
 
@@ -24,11 +24,10 @@ public class CassandraInsertOps implements CassandraOps {
     private static final String STAXDATA_QUERY = "INSERT INTO local_entities.staxdata (key, entity_id, payload) VALUES (?, ?, ?)";
     private static final String PROJECTION_QUERY = "INSERT INTO local_entities.entity_projection_1 (entity_class, index_name, index_value, entity_id, key) VALUES (?, ?, ?, ?, ?)";
 
-    public CassandraInsertOps(Session session) {
+    public CassandraOperations(Session session) {
         this.session = session;
     }
 
-    @Override
     public void insert(AsteriModel model) {
         String modelName = model.getClass().getSimpleName();
 
@@ -76,8 +75,16 @@ public class CassandraInsertOps implements CassandraOps {
             return;
         }
 
-        BoundStatement bind = preparedProjection.bind(modelName, p, indexValue, model.getId(), key);
-        statements.add(bind);
+        if (indexValue instanceof List) {
+            for (String val : (List<String>) indexValue) {
+                BoundStatement bind = preparedProjection.bind(modelName, p, val, model.getId(), key);
+                statements.add(bind);
+            }
+        } else {
+            BoundStatement bind = preparedProjection.bind(modelName, p, indexValue, model.getId(), key);
+            statements.add(bind);
+        }
+
     }
 
     private List<String> getProjectionForModel(String model) {
