@@ -11,6 +11,7 @@ import edu.elearning.cassandra.repository.utils.FieldManipulator;
 import edu.elearning.cassandra.serializer.AsteriModelSerializer;
 import edu.elearning.se.AsteriModel;
 import edu.elearning.se.Post;
+import edu.elearning.se.UserWebsite;
 import org.apache.cassandra.utils.UUIDGen;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,23 +26,28 @@ public class CassandraOperations {
     private static final Session session = CassandraConnectionFactory.getSession();
 
     private static final String INSERT_ENTITIES = "INSERT INTO local_entities.entities (key, entity_id, payload) VALUES (?, ?, ?)";
-    private static final String INSERT_ENTITIES_MODEL = "INSERT INTO local_entities.entities_model (website, entity_class, name, value, key) values (?, ?, ?, ?, ?)";
+    private static final String INSERT_ENTITIES_MODEL = "INSERT INTO local_entities.entities_model (website, entity_class, entity_name, entity_id, key) values (?, ?, ?, ?, ?)";
     private static final String INSERT_PROJECTION = "INSERT INTO local_entities.entities_projection_1 (entity_class, index_name, index_value, entity_id, key) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_IDS = "INSERT INTO local_entities.entities_by_ids (website, entity_class, entity_id) VALUES (?, ?, ?)";
     private static final String SELECT_ENTITIES = "SELECT payload FROM local_entities.entities WHERE key = ?";
     private static final String SELECT_PROJECTION = "SELECT key FROM local_entities.entities_projection_1 WHERE entity_class = ? AND index_name = ? AND index_value = ?";
 
 
     private static PreparedStatement insertEntitiesPrepared = session.prepare(INSERT_ENTITIES);
     private static PreparedStatement insertEntitiesModelPrepared = session.prepare(INSERT_ENTITIES_MODEL);
-    private static PreparedStatement insetProjectionPrepared = session.prepare(INSERT_PROJECTION);
+    private static PreparedStatement insertProjectionPrepared = session.prepare(INSERT_PROJECTION);
+    private static PreparedStatement insertIdsPrepared = session.prepare(INSERT_IDS);
     private static PreparedStatement selectEntitiesPrepared = session.prepare(SELECT_ENTITIES);
     private static PreparedStatement selectProjectionPreapared = session.prepare(SELECT_PROJECTION);
 
 
     public void insert(AsteriModel model) {
         UUID key = insertInEntitiesTable(model);
+        insertIntoIdsTable(model);
         insertInProjectionTable(model, key);
     }
+
+
 
 
     public List<AsteriModel> query(Class<? extends AsteriModel> modelClass, String key, String value) {
@@ -95,14 +101,27 @@ public class CassandraOperations {
         return key;
     }
 
+    private void insertIntoIdsTable(AsteriModel model) {
+
+        String website = model.getUserWebsite().name();
+        String entity_class = model.getClass().getSimpleName();
+        String id = model.getId();
+
+        BoundStatement boundStatement = insertIdsPrepared.bind(website, entity_class, id);
+        session.execute(boundStatement);
+
+    }
+
     private void insertInEntitiesPostTags(AsteriModel model, UUID key) {
         if (model instanceof Post) {
             String entity_class = Post.class.getSimpleName();
-            String userWebsite = ((Post) model).getUserWebsite().name();
+            String userWebsite = model.getUserWebsite().name();
             List<String> tags = ((Post) model).getTags();
-            tags.stream().forEach(tag -> {
-                insertIntoEntitiesModelTable(userWebsite, entity_class, "tag", tag, key);
-            });
+            if(tags != null) {
+                tags.stream().forEach(tag -> {
+                    insertIntoEntitiesModelTable(userWebsite, entity_class, "tag", tag, key);
+                });
+            }
         }
 
     }
@@ -139,11 +158,11 @@ public class CassandraOperations {
 
         if (indexValue instanceof List) {
             for (String val : (List<String>) indexValue) {
-                BoundStatement bind = insetProjectionPrepared.bind(modelName, p, val, model.getId(), key);
+                BoundStatement bind = insertProjectionPrepared.bind(modelName, p, val, model.getId(), key);
                 statements.add(bind);
             }
         } else {
-            BoundStatement bind = insetProjectionPrepared.bind(modelName, p, indexValue, model.getId(), key);
+            BoundStatement bind = insertProjectionPrepared.bind(modelName, p, indexValue, model.getId(), key);
             statements.add(bind);
         }
 
