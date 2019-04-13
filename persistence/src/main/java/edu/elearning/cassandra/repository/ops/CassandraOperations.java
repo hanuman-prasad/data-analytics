@@ -11,7 +11,6 @@ import edu.elearning.cassandra.repository.utils.FieldManipulator;
 import edu.elearning.cassandra.serializer.AsteriModelSerializer;
 import edu.elearning.se.AsteriModel;
 import edu.elearning.se.Post;
-import edu.elearning.se.UserWebsite;
 import org.apache.cassandra.utils.UUIDGen;
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,8 +47,6 @@ public class CassandraOperations {
     }
 
 
-
-
     public List<AsteriModel> query(Class<? extends AsteriModel> modelClass, String key, String value) {
         Preconditions.checkNotNull(modelClass, "Entity class can't be null");
         Preconditions.checkArgument(StringUtils.isNotBlank(key), "Parameter name can't be empty");
@@ -60,24 +57,21 @@ public class CassandraOperations {
         List<UUID> uuids = queryPayloadKeyFromProjectionTable(key, value, entityClass);
 
 
-        List<AsteriModel> data = uuids.stream()
+        return uuids.stream()
                 .map(this::queryActualModelFromEntitiesTable)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-
-        return data;
     }
 
     private Optional<AsteriModel> queryActualModelFromEntitiesTable(UUID uuid) {
         BoundStatement bindStaxdata = selectEntitiesPrepared.bind(uuid);
         ResultSet resultSet = session.execute(bindStaxdata);
-        Optional<AsteriModel> model = resultSet.all()
+        return resultSet.all()
                 .stream()
                 .map(row -> row.getBytes("payload"))
                 .map(AsteriModelSerializer::deserialize)
                 .findFirst();
-        return model;
     }
 
     private List<UUID> queryPayloadKeyFromProjectionTable(String key, String value, String entityClass) {
@@ -117,11 +111,9 @@ public class CassandraOperations {
             String entity_class = Post.class.getSimpleName();
             String userWebsite = model.getUserWebsite().name();
             List<String> tags = ((Post) model).getTags();
-            if(tags != null) {
-                tags.stream().forEach(tag -> {
-                    insertIntoEntitiesModelTable(userWebsite, entity_class, "tag", tag, key);
-                });
-            }
+            if (tags != null) tags.forEach(tag -> {
+                insertIntoEntitiesModelTable(userWebsite, entity_class, "tag", tag, key);
+            });
         }
 
     }
@@ -141,13 +133,13 @@ public class CassandraOperations {
 
         prepareStatements(modelName, model, key, statements, "id");
 
-        projections.stream()
+        projections
                 .forEach(p -> {
                             prepareStatements(modelName, model, key, statements, p);
                         }
                 );
 
-        statements.stream().forEach(stmt -> session.execute(stmt));
+        statements.forEach(stmt -> session.execute(stmt));
     }
 
     private void prepareStatements(String modelName, AsteriModel model, UUID key, Set<BoundStatement> statements, String p) {
