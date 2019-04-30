@@ -37,7 +37,7 @@ public class CassandraRepositoryTest {
 
         repository.save(user);
 
-        List<AsteriModel> persistedUser = repository.query(User.class, "id", "HARDWARE-1");
+        List<AsteriModel> persistedUser = repository.query(UserWebsite.HARDWARE, User.class, "id", "HARDWARE-1");
 
         assertNotNull(persistedUser);
         assertEquals("888", ((User)persistedUser.get(0)).getUpVotes());
@@ -82,10 +82,10 @@ public class CassandraRepositoryTest {
 
 
     private static AsteriModel query(Class<? extends AsteriModel> kClass, String name, String value) {
-        return repository.query(kClass, name, value).stream().findFirst().get();
+        return repository.query(UserWebsite.HARDWARE, kClass, name, value).stream().findFirst().get();
     }
 
     private static List<AsteriModel> queryAll(Class<? extends AsteriModel> kClass, String name, String value) {
-        return repository.query(kClass, name, value).stream().collect(toList());
+        return repository.query(UserWebsite.HARDWARE, kClass, name, value).stream().collect(toList());
     }
 }

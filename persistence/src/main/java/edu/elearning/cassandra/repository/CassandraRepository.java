@@ -1,8 +1,8 @@
 package edu.elearning.cassandra.repository;
 
-import edu.elearning.cassandra.connection.CassandraConnectionFactory;
 import edu.elearning.cassandra.repository.ops.CassandraOperations;
 import edu.elearning.se.AsteriModel;
+import edu.elearning.se.UserWebsite;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ public class CassandraRepository implements Repository {
     }
 
     @Override
-    public List<AsteriModel> query(Class<? extends AsteriModel> kClass, String paramName, String paramValue) {
+    public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> kClass, String paramName, String paramValue) {
 
-        return cassandraOps.query(kClass, paramName, paramValue);
+        return cassandraOps.query(website, kClass, paramName, paramValue);
     }
 }

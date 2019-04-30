@@ -12,7 +12,7 @@ public interface EntityRegistry {
             ImmutableMap.<String, List<String>>builder()
                     .put("Badge", ImmutableList.of("id", "name", "userId"))
                     .put("Comment", ImmutableList.of("id", "postId", "userId"))
-                    .put("Post", ImmutableList.of("id", "tags", "ownerUserId"))
+                    .put("Post", ImmutableList.of("id", "ownerUserId"))
                     .put("PostLink", ImmutableList.of("id", "relatedPostId", "postId"))
                     .put("User", ImmutableList.of("id", "upVotes", "views"))
                     .put("Vote", ImmutableList.of("id", "postId"))
