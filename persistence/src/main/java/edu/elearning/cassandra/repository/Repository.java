@@ -9,5 +9,7 @@ public interface Repository {
 
     void save(AsteriModel model);
 
-    List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> kClass, String paramName, String paramValue);
+    List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> modelClass, String paramName, String paramValue);
+
+    List<String> queryIds(UserWebsite website, Class<? extends AsteriModel> modelClass);
 }

@@ -28,9 +28,10 @@ public class CassandraOperations {
     private static final String INSERT_ENTITIES = "INSERT INTO local_entities.entities (key, entity_id, payload) VALUES (?, ?, ?)";
     private static final String INSERT_SUBENTITIES_PROJECTION = "INSERT INTO local_entities.subentities_projection (website, entity_class, entity_subclass, subentity_value, key) values (?, ?, ?, ?, ?)";
     private static final String INSERT_PROJECTION = "INSERT INTO local_entities.entities_projection_1 (website, entity_class, index_name, index_value, entity_id, key) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String INSERT_IDS = "INSERT INTO local_entities.entities_by_ids (website, entity_class, entity_id) VALUES (?, ?, ?)";
+    private static final String INSERT_IDS = "INSERT INTO local_entities.entities_by_ids (website, entity_class, id) VALUES (?, ?, ?)";
     private static final String SELECT_ENTITIES = "SELECT payload FROM local_entities.entities WHERE key = ?";
     private static final String SELECT_PROJECTION = "SELECT key FROM local_entities.entities_projection_1 WHERE website = ? AND entity_class = ? AND index_name = ? AND index_value = ?";
+    private static final String SELECT_IDS = "SELECT id FROM local_entities.entities_by_ids WHERE website = ? AND entity_class = ?";
 
 
     private static PreparedStatement insertEntitiesPrepared = session.prepare(INSERT_ENTITIES);
@@ -39,6 +40,7 @@ public class CassandraOperations {
     private static PreparedStatement insertIdsPrepared = session.prepare(INSERT_IDS);
     private static PreparedStatement selectEntitiesPrepared = session.prepare(SELECT_ENTITIES);
     private static PreparedStatement selectProjectionPreapared = session.prepare(SELECT_PROJECTION);
+    private static PreparedStatement selectIdsPreapared = session.prepare(SELECT_IDS);
 
 
     public void insert(AsteriModel model) {
@@ -48,7 +50,25 @@ public class CassandraOperations {
     }
 
 
+    public List<String> queryIds(UserWebsite website, Class<? extends AsteriModel> modelClass) {
+        Preconditions.checkNotNull(website, "Website can't be null");
+        Preconditions.checkNotNull(modelClass, "Entity class can't be null");
+
+        String websiteName = website.name();
+        String entityClass = modelClass.getSimpleName();
+
+        BoundStatement bind = selectIdsPreapared.bind(website, entityClass);
+        ResultSet result = session.execute(bind);
+
+        return result.all()
+                .stream()
+                .map(r -> r.getString("id"))
+                .collect(toList());
+    }
+
+
     public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> modelClass, String key, String value) {
+        Preconditions.checkNotNull(website, "Website can't be null");
         Preconditions.checkNotNull(modelClass, "Entity class can't be null");
         Preconditions.checkArgument(StringUtils.isNotBlank(key), "Parameter name can't be empty");
         Preconditions.checkArgument(StringUtils.isNotBlank(key), "Parameter value can't be empty");
@@ -168,4 +188,5 @@ public class CassandraOperations {
         return EntityRegistry.projections.getOrDefault(model, Collections.emptyList());
 
     }
+
 }

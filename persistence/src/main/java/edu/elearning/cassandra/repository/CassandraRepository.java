@@ -25,8 +25,13 @@ public class CassandraRepository implements Repository {
     }
 
     @Override
-    public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> kClass, String paramName, String paramValue) {
+    public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> modelClass, String paramName, String paramValue) {
 
-        return cassandraOps.query(website, kClass, paramName, paramValue);
+        return cassandraOps.query(website, modelClass, paramName, paramValue);
+    }
+
+    @Override
+    public List<String> queryIds(UserWebsite website, Class<? extends AsteriModel> modelClass) {
+        return cassandraOps.queryIds(website, modelClass);
     }
 }

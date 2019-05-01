@@ -54,7 +54,7 @@ public class CassandraRepositoryTest {
                 .postType(PostType.ANSWER)
                 .title("Test")
                 .tags(ImmutableList.of("wiki", "para", "iopwiero"))
-                .userWebsite(UserWebsite.STACKOVERFLOW)
+                .userWebsite(UserWebsite.HARDWARE)
                 .build();
 
         Post post1 = Post.builder()
@@ -74,18 +74,10 @@ public class CassandraRepositoryTest {
         assertEquals("1", queryPostById.getId());
         assertEquals("Test", queryPostById.getTitle());
 
-        List<AsteriModel> queryPostByTag =  queryAll(Post.class, "tags", "iopwiero");
-        assertTrue(queryPostByTag.size() == 2);
-
-
     }
 
 
     private static AsteriModel query(Class<? extends AsteriModel> kClass, String name, String value) {
         return repository.query(UserWebsite.HARDWARE, kClass, name, value).stream().findFirst().get();
-    }
-
-    private static List<AsteriModel> queryAll(Class<? extends AsteriModel> kClass, String name, String value) {
-        return repository.query(UserWebsite.HARDWARE, kClass, name, value).stream().collect(toList());
     }
 }

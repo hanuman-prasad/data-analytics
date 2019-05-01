@@ -17,8 +17,8 @@ PRIMARY KEY (key, entity_id)
 CREATE TABLE IF NOT EXISTS entities_by_ids (
 website text,
 entity_class text,
-entity_id text,
-PRIMARY KEY ((website, entity_class), entity_id)
+id text,
+PRIMARY KEY ((website, entity_class), id)
 );
 
 
