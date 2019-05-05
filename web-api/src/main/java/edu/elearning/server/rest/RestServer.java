@@ -6,7 +6,7 @@ public class RestServer extends DefaultRestServer {
         super(host, port, ioThreads, workerThreads);
     }
 
-    public RestServer createServer(String host, int port, int ioThreads, int workerThreads) {
+    public static RestServer createServer(String host, int port, int ioThreads, int workerThreads) {
         return new RestServer(host, port, ioThreads, workerThreads);
     }
 }
