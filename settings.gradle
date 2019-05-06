@@ -1,8 +1,9 @@
 rootProject.name = 'data-analytics'
 include 'datamodel:definition'
+include 'persistence'
+include 'services:asteri-properties'
 include 'services:data-cache'
 include 'services:gateway'
-include 'persistence'
 include 'tools:data-loader'
 include 'web-api'
 
