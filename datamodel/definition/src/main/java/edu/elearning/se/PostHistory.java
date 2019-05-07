@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PostHistory implements AsteriModel {
+public class PostHistory extends VersionedEntity {
 
     private LocalDateTime creationDate;
     private PostHistoryType postHistoryType;

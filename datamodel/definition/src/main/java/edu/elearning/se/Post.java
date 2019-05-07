@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Post implements AsteriModel {
+public class Post extends VersionedEntity {
 
     @NonNull
     @EqualsAndHashCode.Include

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Badge implements AsteriModel {
+public class Badge extends VersionedEntity {
 
     private BadgeClass badgeClass;
     private LocalDateTime date;

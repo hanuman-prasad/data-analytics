@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Comment implements AsteriModel {
+public class Comment extends VersionedEntity {
 
     @NonNull
     @EqualsAndHashCode.Include

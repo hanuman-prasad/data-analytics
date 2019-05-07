@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User implements AsteriModel {
+public class User extends VersionedEntity {
 
 
     @NonNull

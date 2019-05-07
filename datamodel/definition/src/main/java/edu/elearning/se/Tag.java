@@ -9,7 +9,7 @@ import lombok.NonNull;
 @Builder
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Tag implements AsteriModel {
+public class Tag extends VersionedEntity {
 
     private String count;
     private String excerptPostId;
