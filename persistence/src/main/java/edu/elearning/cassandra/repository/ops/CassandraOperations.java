@@ -57,7 +57,7 @@ public class CassandraOperations {
         String websiteName = website.name();
         String entityClass = modelClass.getSimpleName();
 
-        BoundStatement bind = selectIdsPreapared.bind(website, entityClass);
+        BoundStatement bind = selectIdsPreapared.bind(websiteName, entityClass);
         ResultSet result = session.execute(bind);
 
         return result.all()
@@ -107,6 +107,8 @@ public class CassandraOperations {
     private UUID insertInEntitiesTable(AsteriModel model) {
 
         UUID key = UUIDGen.getTimeUUID();
+
+        model.setObjectId(key);
 
         ByteBuffer byteBuffer = AsteriModelSerializer.serialize(model);
         BoundStatement boundStatement = insertEntitiesPrepared.bind(key, FieldManipulator.getFieldValue(model, "id"), byteBuffer);
