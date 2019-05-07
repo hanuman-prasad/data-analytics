@@ -1,4 +1,4 @@
-package edu.elearning.service.cache.conf;
+package edu.elearning.service.datacache.conf;
 
 import edu.elearning.server.rest.RestServerConfiguration;
 import org.springframework.context.annotation.Configuration;

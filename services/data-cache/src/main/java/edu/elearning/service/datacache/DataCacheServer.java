@@ -1,9 +1,9 @@
-package edu.elearning.service.cache;
+package edu.elearning.service.datacache;
 
 import edu.elearning.server.rest.DefaultServerLauncher;
 import edu.elearning.server.rest.RestServer;
 import edu.elearning.server.rest.RestServerConfiguration;
-import edu.elearning.service.cache.conf.DataCacheRestServerConfig;
+import edu.elearning.service.datacache.conf.DataCacheRestServerConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class DataCacheServer extends DefaultServerLauncher {
