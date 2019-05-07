@@ -7,4 +7,7 @@ public interface AsteriModel extends Serializable {
     String getId();
     UserWebsite getUserWebsite();
     UUID getObjectId();
+
+    // TODO need to fix this
+    void setObjectId(UUID objectId);
 }

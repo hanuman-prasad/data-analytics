@@ -8,7 +8,7 @@ import lombok.NonNull;
 
 import java.util.UUID;
 
-@Builder
+
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class VersionedEntity implements AsteriModel {
@@ -17,8 +17,14 @@ public abstract class VersionedEntity implements AsteriModel {
     @EqualsAndHashCode.Include
     private UUID objectId;
 
+    @Override
     public UUID getObjectId() {
         return objectId;
+    }
+
+    @Override
+    public void setObjectId(UUID objectId) {
+        this.objectId = objectId;
     }
 
     @Override
