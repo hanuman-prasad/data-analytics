@@ -5,6 +5,7 @@ import edu.elearning.se.AsteriModel;
 import edu.elearning.se.UserWebsite;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * client should use this class's instance to interact with cassandra
@@ -28,6 +29,11 @@ public class CassandraRepository implements Repository {
     public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> modelClass, String paramName, String paramValue) {
 
         return cassandraOps.query(website, modelClass, paramName, paramValue);
+    }
+
+    @Override
+    public List<UUID> queryUUIds(UserWebsite website, Class<? extends AsteriModel> modelClass, String paramName, String paramValue) {
+        return cassandraOps.queryUUIds(website, modelClass, paramName, paramValue);
     }
 
     @Override

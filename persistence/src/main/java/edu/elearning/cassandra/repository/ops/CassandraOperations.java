@@ -66,8 +66,7 @@ public class CassandraOperations {
                 .collect(toList());
     }
 
-
-    public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> modelClass, String key, String value) {
+    public List<UUID> queryUUIds(UserWebsite website, Class<? extends AsteriModel> modelClass, String key, String value) {
         Preconditions.checkNotNull(website, "Website can't be null");
         Preconditions.checkNotNull(modelClass, "Entity class can't be null");
         Preconditions.checkArgument(StringUtils.isNotBlank(key), "Parameter name can't be empty");
@@ -75,8 +74,12 @@ public class CassandraOperations {
         String websiteName = website.name();
         String entityClass = modelClass.getSimpleName();
 
+        return queryPayloadKeyFromProjectionTable(websiteName, key, value, entityClass);
+    }
 
-        List<UUID> uuids = queryPayloadKeyFromProjectionTable(websiteName, key, value, entityClass);
+    public List<AsteriModel> query(UserWebsite website, Class<? extends AsteriModel> modelClass, String key, String value) {
+
+        List<UUID> uuids = queryUUIds(website, modelClass, key, value);
 
 
         return uuids.stream()
