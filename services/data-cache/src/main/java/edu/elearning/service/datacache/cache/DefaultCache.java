@@ -5,13 +5,11 @@ import com.google.common.cache.CacheBuilder;
 public class DefaultCache<K, V> implements Cache<K, V> {
 
     private final String name;
-    private final int maxSize;
     private final CachePersister<K, V> persister;
     private final com.google.common.cache.Cache<K, V> cache;
 
-    public DefaultCache(String name, int maxSize, CachePersister persister, com.google.common.cache.Cache<K, V> cache) {
+    public DefaultCache(String name, CachePersister persister, com.google.common.cache.Cache<K, V> cache) {
         this.name = name;
-        this.maxSize = maxSize;
         this.persister = persister;
         this.cache = CacheBuilder.newBuilder().build();
     }
