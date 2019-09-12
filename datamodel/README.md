@@ -13,6 +13,6 @@ There are 8 different entities present this datamodel:
 7. Users
 8. Votes
 
-[Entity Relationship diagram](docs/Entity_Relation_ship_diagram.PNG)
+[Entity Relationship diagram](../docs/Entity_Relation_ship_diagram.PNG)
 
 
