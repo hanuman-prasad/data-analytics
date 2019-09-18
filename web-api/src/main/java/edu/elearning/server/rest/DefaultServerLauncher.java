@@ -12,7 +12,7 @@ public abstract class DefaultServerLauncher implements ServerLauncher {
     public RestServer startAndDeploy() {
         RestServerConfiguration config = loadServerConfiguration();
         server = configureRestServer(config);
-        server.deploy().start();
+        server.start().deploy();
         return server;
     }
 

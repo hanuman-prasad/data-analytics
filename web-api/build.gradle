@@ -1,8 +1,11 @@
 
 dependencies {
-    compile 'org.jboss.resteasy:resteasy-undertow:3.1.0.Final'
-    compile 'org.jboss.resteasy:resteasy-spring:3.1.0.Final'
 
-    compile 'org.springframework:spring-context:4.3.18.RELEASE'
-    compile 'org.springframework:spring-web:4.3.18.RELEASE'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.29'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.29'
+
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.9.0.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-core', version: '4.3.0.Final'
+    compile group: 'io.undertow', name: 'undertow-core', version: '2.0.26.Final'
+    compile group: 'io.undertow', name: 'undertow-servlet', version: '2.0.26.Final'
 }

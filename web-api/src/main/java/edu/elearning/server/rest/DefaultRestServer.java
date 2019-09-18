@@ -1,125 +1,108 @@
 package edu.elearning.server.rest;
 
 import io.undertow.Undertow;
+import io.undertow.server.handlers.PathHandler;
 import io.undertow.servlet.api.DeploymentInfo;
-import io.undertow.servlet.api.ListenerInfo;
-import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
-import org.jboss.resteasy.plugins.spring.SpringBeanProcessor;
+import io.undertow.servlet.api.DeploymentManager;
+import io.undertow.servlet.api.ServletContainer;
+import io.undertow.servlet.api.ServletInfo;
+import org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher;
 import org.jboss.resteasy.spi.ResteasyDeployment;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.jboss.resteasy.util.PortProvider;
 
+import javax.servlet.ServletException;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Logger;
+
+import static io.undertow.servlet.Servlets.servlet;
 
 public abstract class DefaultRestServer {
 
     private static final Logger LOG = Logger.getLogger("DefaultRestServer");
 
-    private String contextPath = "asteri";
+    private String contextPath = "/asteri";
 
-    private final String host;
-    private int port;
-    private int ioThreads;
-    private int workerThreads;
-
-    private UndertowJaxrsServer server;
-    private List<String> resources = new LinkedList<>();
-    private List<Class> configurations = new LinkedList<>();
-    private AbstractApplicationContext applicationContext;
+    private final PathHandler rootPathHandler = new PathHandler();
+    private final ServletContainer container = ServletContainer.Factory.newInstance();
+    private final Undertow server;
+    private Application application;
 
 
     public DefaultRestServer(String host, int port, int ioThreads, int workerThreads) {
+      this.server = Undertow.builder()
+                .addHttpListener(port, host)
+                .setHandler(rootPathHandler)
+                .setWorkerThreads(workerThreads)
+                .setIoThreads(ioThreads)
+                .build();
+    }
 
-        if ("localhost".equals(host) || "127.0.0.1".equals(host) || null == host || host.isEmpty()) {
-            LOG.info("no host specified, defaualting to actual...");
-            try {
-                host = InetAddress.getLocalHost().getHostName();
-                LOG.info("Actual host : " + host);
-            } catch (UnknownHostException e) {
-                LOG.warning("Failed to resolve host name");
-                host = "localhost";
-            }
 
-        }
-        this.host = host;
-        this.port = port;
-        this.ioThreads = ioThreads;
-        this.workerThreads = workerThreads;
-
-        this.server = new UndertowJaxrsServer();
+    public DefaultRestServer start(){
+        server.start();
+        return this;
     }
 
     public DefaultRestServer deploy() {
-        applicationContext = initialiseContext();
-        return this;
+        DeploymentInfo di = buildResteasyDeploymentInfo();
+        di.setClassLoader(application.getClass().getClassLoader());
+        di.setContextPath(contextPath);
+        di.setDeploymentName("Resteasy" + contextPath);
+        return deploy(di);
     }
 
-    public void start() {
-        applicationContext.start();
-
-        Undertow.Builder builder = Undertow.builder()
-                .addHttpListener(port, host)
-                .setIoThreads(ioThreads)
-                .setWorkerThreads(workerThreads);
-
-        server.start(builder);
-
+    public void stop() {
+        server.stop();
     }
 
-    protected AbstractApplicationContext initialiseContext() {
-        ResteasyDeployment deployment = new ResteasyDeployment();
-        deployment.setResourceClasses(resources);
+    private DefaultRestServer deploy(DeploymentInfo deploymentInfo) {
+        DeploymentManager manager = container.addDeployment(deploymentInfo);
+        manager.deploy();
 
-        DeploymentInfo deploymentInfo = server.undertowDeployment(deployment)
-                .setClassLoader(this.getClass().getClassLoader())
-                .setContextPath("/" + contextPath)
-                .setDeploymentName(contextPath);
-
-        deploymentInfo.addListener(new ListenerInfo(RequestContextListener.class));
-
-
-        Class[] configs = configurations.stream().toArray(Class[]::new);
-
-        SpringBeanProcessor springBeanProcessor = new SpringBeanProcessor(deployment);
-
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.addBeanFactoryPostProcessor(springBeanProcessor);
-        context.addApplicationListener(springBeanProcessor);
-
-        if (configs.length > 0) {
-            context.register(configs);
+        try {
+            rootPathHandler.addPrefixPath(deploymentInfo.getContextPath(), manager.start());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
 
-        context.refresh();
-
-
-        return context;
-    }
-
-    public final DefaultRestServer configuration(Class<?> config) {
-        this.configurations.add(config);
         return this;
     }
 
-    public final DefaultRestServer contextPath(String contextPath) {
-        this.contextPath = contextPath;
-        return this;
+    private DeploymentInfo buildResteasyDeploymentInfo() {
+
+        String mapping = getContextPath(application);
+
+        String prefix = mapping.equals("/*") ? null : mapping.substring(0, mapping.length() - 2);
+
+        ResteasyDeployment resteasyDeployment = new ResteasyDeployment();
+        resteasyDeployment.setApplication(application);
+
+        ServletInfo resteasyServlet = servlet("ResteasyServlet", HttpServlet30Dispatcher.class)
+                .setAsyncSupported(true)
+                .setLoadOnStartup(1)
+                .addMapping(mapping);
+        if (prefix != null) resteasyServlet.addInitParam("resteasy.servlet.mapping.prefix", prefix);
+
+        return new DeploymentInfo()
+                .addServletContextAttribute(ResteasyDeployment.class.getName(), resteasyDeployment)
+                .addServlet(resteasyServlet);
     }
 
-    public String getContextPath() {
-        return contextPath;
+    private String getContextPath(Application application) {
+        ApplicationPath appContextPath = application.getClass().getAnnotation(ApplicationPath.class);
+        String mapping = appContextPath != null ? appContextPath.value() : "/";
+
+        if (!mapping.startsWith("/")) mapping = "/" + mapping;
+        if (!mapping.endsWith("/")) mapping += "/";
+        mapping = mapping + "*";
+
+        return mapping;
     }
 
-    public String getHost() {
-        return host;
-    }
-
-    public int getPort() {
-        return port;
+    public void addApplication(Application application) {
+        this.application = application;
     }
 }
