@@ -25,7 +25,7 @@ public class ParserMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        List<File> files = XmlFileHelper.getAllFilesForFolder("D:/stackexchange/hardware/");
+        List<File> files = XmlFileHelper.getAllFilesForFolder("E:/dump/beer/");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
         Repository repository = new CassandraRepository();
@@ -74,6 +74,8 @@ public class ParserMain {
                 }
             }
 
+            xmlFileReader.close();
+
             LOG.info("Entity " + name + " successfully loaded for website " + website_name.toUpperCase() + " : Counts = " + models.size() + ", Exceptions = " + exceptions.size());
 
             modelMap.put(name, models);
@@ -81,6 +83,8 @@ public class ParserMain {
         }
 
         LOG.info("Number of file parsed - " + modelMap.size());
+
+        repository.closeConnection();
     }
 
     private static boolean isWebsiteDefined(String website_name) {

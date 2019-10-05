@@ -21,6 +21,11 @@ public class CassandraRepository implements Repository {
     }
 
     @Override
+    public void closeConnection() {
+        cassandraOps.close();
+    }
+
+    @Override
     public void save(AsteriModel model) {
         cassandraOps.insert(model);
     }

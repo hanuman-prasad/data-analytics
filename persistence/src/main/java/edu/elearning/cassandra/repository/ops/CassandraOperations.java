@@ -6,6 +6,7 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import com.google.common.base.Preconditions;
 import edu.elearning.cassandra.connection.CassandraConnectionFactory;
+import edu.elearning.cassandra.connection.CassandraConnectionManager;
 import edu.elearning.cassandra.projection.EntityRegistry;
 import edu.elearning.cassandra.repository.utils.FieldManipulator;
 import edu.elearning.cassandra.serializer.AsteriModelSerializer;
@@ -23,7 +24,8 @@ import static java.util.stream.Collectors.toList;
 
 public class CassandraOperations {
 
-    private static final Session session = CassandraConnectionFactory.getSession();
+    private static final CassandraConnectionManager connectionManager = CassandraConnectionFactory.getCassandraConnectionManager();
+    private static final Session session = connectionManager.getSession();
 
     private static final String INSERT_ENTITIES = "INSERT INTO local_entities.entities (key, entity_id, payload) VALUES (?, ?, ?)";
     private static final String INSERT_SUBENTITIES_PROJECTION = "INSERT INTO local_entities.subentities_projection (website, entity_class, entity_subclass, subentity_value, key) values (?, ?, ?, ?, ?)";
@@ -194,4 +196,7 @@ public class CassandraOperations {
 
     }
 
+    public void close() {
+        connectionManager.close();
+    }
 }
