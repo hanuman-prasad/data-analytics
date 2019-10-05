@@ -25,7 +25,7 @@ public class ParserMain {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        List<File> files = XmlFileHelper.getAllFilesForFolder("E:/dump/beer/");
+        List<File> files = XmlFileHelper.getAllFilesForFolder("beer");
         Map<String, List<AsteriModel>> modelMap = new HashMap<>();
 
         Repository repository = new CassandraRepository();

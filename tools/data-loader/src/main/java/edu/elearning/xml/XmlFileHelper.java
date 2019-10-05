@@ -16,7 +16,7 @@ public class XmlFileHelper {
 
     public static List<File> getAllFilesForFolder(String bashPath, String extension) {
 
-        File bashDir = new File(bashPath);
+        File bashDir = new File(XmlFileHelper.class.getClassLoader().getResource(bashPath).getFile());
 
         List<File> fileList = Arrays.stream(bashDir.listFiles((dir, name) -> name.toLowerCase().endsWith(extension)))
                 .filter(file -> file.isFile())
