@@ -1,4 +1,4 @@
-
+mainClassName = 'edu.elearning.ParserMain'
 dependencies {
     compile project(':datamodel:definition')
     compile project(':persistence')

@@ -1,5 +1,5 @@
 allprojects {
-    apply plugin: 'java'
+    apply plugin: 'application'
     apply plugin: 'maven-publish'
     group 'edu.elearning'
     version = 'DYNAMIC-SNAPSHOT'
