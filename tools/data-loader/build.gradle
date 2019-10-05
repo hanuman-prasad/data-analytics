@@ -1,5 +1,6 @@
 
 dependencies {
+    compile project(':datamodel:definition')
     compile project(':persistence')
     compile group: 'edu.elearning', name: 'definition', version: 'DYNAMIC-SNAPSHOT'
     compile group: 'com.google.collections', name: 'google-collections', version: '1.0-rc2'
