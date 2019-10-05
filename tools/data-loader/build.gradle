@@ -1,7 +1,7 @@
 
 dependencies {
     compile project(':persistence')
-    compile group: 'edu.elearning', name: 'datamodel-def', version: 'DYNAMIC-SNAPSHOT'
+    compile group: 'edu.elearning', name: 'definition', version: 'DYNAMIC-SNAPSHOT'
     compile group: 'com.google.collections', name: 'google-collections', version: '1.0-rc2'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 }

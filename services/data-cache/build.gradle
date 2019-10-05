@@ -2,7 +2,7 @@ dependencies {
     compile project(':web-api')
     compile project(':persistence')
 
-    compile group: 'edu.elearning', name: 'datamodel-def', version: 'DYNAMIC-SNAPSHOT'
+    compile group: 'edu.elearning', name: 'definition', version: 'DYNAMIC-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxrs
     compile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.6.3.Final'
