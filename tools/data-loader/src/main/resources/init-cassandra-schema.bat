@@ -25,3 +25,8 @@ set cqlCmd=cqlsh -e "SOURCE '%cd%/%schemaFileName%'"
 echo importing schema using : %cqlCmd%
 %cqlCmd%
 cd /d %currentDir%
+
+cd ../../../
+
+gradle clean build -x test
+gradle run
