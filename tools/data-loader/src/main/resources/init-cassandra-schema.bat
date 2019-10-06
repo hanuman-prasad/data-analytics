@@ -28,5 +28,7 @@ cd /d %currentDir%
 
 cd ../../../
 
-gradle clean build -x test
-gradle run
+echo Staring gradle build in %cd%
+call gradle clean build -x test
+echo Running the tool to import data
+call gradle run
