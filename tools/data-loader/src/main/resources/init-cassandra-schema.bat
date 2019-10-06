@@ -23,7 +23,7 @@ set schemaFileName=entities.cql
 cd /d %schemaFilePath%
 set cqlCmd=cqlsh -e "SOURCE '%cd%/%schemaFileName%'"
 echo importing schema using : %cqlCmd%
-%cqlCmd%
+call %cqlCmd%
 cd /d %currentDir%
 
 cd ../../../
